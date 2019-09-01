@@ -56,21 +56,12 @@
 %
 % -> referencia
 %
-%input([[key,subkey],[
-%           [[problema1],[
-%                [[descripcion,1],[link1]],
-%                [[descripcion,2],[link2]],
-%                ...
-%                [[descripcion,N],[linkN]],
-%            ]],
-%            [[problema2],[
-%                ...
-%            ]],
-%            ...
-%            [[problemaN],[
-%                ...
-%            ]]
-%       ]]).
+% entrada([[key,subkey],[
+%              [[descripcion,1],[link1]],
+%              [[descripcion,2],[link2]],
+%              ...
+%              [[descripcion,N],[linkN]],
+%          ]]).
 %
 %
 % ------------------------------------------------------------------------
