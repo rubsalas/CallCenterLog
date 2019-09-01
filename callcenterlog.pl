@@ -76,6 +76,109 @@
 % ------------------------------------------------------------------------
 
 
+/*
+ * Base de Datos para BNFs
+ */
+
+
+%Determinantes
+%Todos los posibles
+determinantes([
+               %Personales
+               yo,me,mi,
+               tu,vos,te,ti,
+               usted,lo,la,
+               el,ella,le,se,
+               nosotros,nosotras,nos,
+               vosotros,vosotras,os,
+               ustedes,los,las,
+               ellos,ellas,les,
+               %Posesivos
+               mis,tus,sus,su,
+               nuestro,nuestra,
+               nuestros,nuestras,
+               vuestro,vuestra,
+               vuestros,vuestras,
+               mio,mia,mios,mias,
+               tuyo,tuya,tuyos,tuyas,
+               suyo,suya,suyos,suyas,
+               %Reflexivos
+               se,
+               %Relativos/Interrogativos
+               que,cual,cuales,
+               quien,quienes,cuyo,cuya,
+               cuyos,cuyas,cuanto,cuanta,
+               cuantos,cuantas,
+               %Demostrativos
+               este,ese,aquel,
+               estos,esos,aquellos,
+               esta,esa,aquella,
+               estas,esas,aquellas,
+               esto,eso,aquello,
+               %Indefinidos
+               algun,alguno,alguna,algunos,algunas,
+               otro,otra,otros,otras,
+               mucho,mucha,muchos,muchas,
+               poco,poca,pocos,pocas,
+               demasiado,demasiadas,demasiados,demasiadas,
+               todo,toda,todos,todas,
+               cierto,cierta,ciertos,ciertas,
+               tanto,tanta,tantos,tantas,
+               bastante,bastantes,cualquier,cualesquiera,
+               quienquiera,quienesquiera,
+               varios,varias,ningun,ninguna,
+               alguien,algo,mas,menos,nada,nadie,
+               cualquiera,cada
+              ]).
+
+
+%Sujetos Repetidos
+%Separados por mencion en dispositivo
+sujetosRepetidos([
+ %Macbook
+    aplicacion,archivo,archivos,buscador,comunidad,copias,disco,dispositivo,driver,drivers,
+    espacio,firmware,folder,iCloud,maquina,memoria,plug-in,problema,programas,proceso,
+    puerto,puertos,respaldo,sistema,software,soporte,unidades,usb,
+ %iPhone
+    almacenamiento,ajuste,aplicacion,aplicaciones,bateria,cargador,componente,
+    dispositivo,fotos,fuente,galeria,iOS,memoria,pantalla,problema,
+    puerto,rendimiento,respuesta,soporte,version,videos,
+ %AppleWatch
+    ahorro,aplicaciones,audifonos,bateria,bluetooth,conexiones,corazon,dispositivo,duracion,
+    energia,iPhone,modo,monitoreo,musica,notificaciones,rendimiento,respuesta,ritmo,
+    soporte,tiempo,vida,watchOS,wifi,
+ %AppStore
+    actualizaciones,almacenamiento,aplicacion,aplicaciones,apple,appleID,avion,codigo,compras,
+    conexion,credito,cuenta,datos,debito,desarrollador,dispositivo,fondos,fotos,galeria,
+    internet,juegos,minutos,modo,moviles,necesidades,opcion,paypal,red,regalo,servicio,
+    servidor,sesion,sistema,soporte,suscripciones,tarjeta,version,versiones,videos,wifi,
+ %AppleMusic
+    ajustes,almacenamiento,aplicacion,avion,cancion,canciones,codigo,comunidad,conexion,credito,
+    cuenta,datos,debito,dispositivo,fondos,fotos,galeria,iCloud,internet,library,minutos,modo,
+    music,musica,pais,pasos,paypal,plan,presupuesto,red,regalo,region,sistema,soporte,
+    suscripcion,tarjeta,version,videos,volumen,wifi
+]).
+
+
+%Sujetos Unicos
+%Solo estan una vez, se encuentran todos los de los dispositivos
+sujetos([
+    actualizaciones,ahorro,almacenamiento,ajuste,ajustes,aplicacion,aplicaciones,apple,appleID,
+    archivo,archivos,audifonos,avion,bateria,bluetooth,buscador,cancion,canciones,cargador,codigo,
+    componente,compras,comunidad,conexion,conexiones,copias,corazon,credito,cuenta,datos,debito,
+    desarrollador,disco,dispositivo,driver,drivers,duracion,energia,espacio,firmware,folder,
+    fondos,fotos,fuente,galeria,iCloud,internet,iOS,iPhone,juegos,library,maquina,memoria,minutos,
+    modo,monitoreo,moviles,music,musica,necesidades,notificaciones,opcion,pais,pantalla,pasos,
+    paypal,plan,plug-in,presupuesto,problema,programas,proceso,puerto,puertos,red,regalo,region,
+    rendimiento,respaldo,respuesta,ritmo,servicio,servidor,sesion,sistema,software,soporte,suscripcion,
+    suscripciones,tarjeta,tiempo,unidades,usb,version,versiones,vida,videos,volumen,watchOS,wifi
+]).
+
+
+%Verbos
+verbos([]).
+
+
 
 
 
@@ -213,7 +316,7 @@ input([[causa,iphone],[
            [[se,produce,una,respuesta,lenta],[
                 [el,almacenamiento,esta,lleno],
                 [la,memoria,ram,es,insuficiente],
-                [el,ios,esta,desactualizado],
+                [el,iOS,esta,desactualizado],
                 [la,bateria,esta,dañada]
             ]],
            [[no,carga],[
@@ -253,8 +356,8 @@ input([[causa,appstore],[
            [[no,se,pueden,bajar,aplicaciones],[
                 [el,almacenamiento,esta,lleno],
                 [no,tiene,fondos],
-                [no,tiene,apple,id],
-                [se,estan,utilizando,los,datos,celulares],
+                [no,tiene,appleID],
+                [se,estan,utilizando,los,datos,moviles],
                 [el,sistema,operativo,esta,desactualizado]
             ]],
            [[no,se,conecta],[
@@ -313,7 +416,7 @@ input([[solucion,macbook],[
             ]],
            [[se,encuentran,corriendo,muchos,programas,a,la,vez],[
                 [incremente,el,espacio,de,memoria],
-                [inicie,la,mac,en,modo,seguro,para,correr,un,proceso,de,limpiado],
+                [inicie,el,dispositivo,en,modo,seguro,para,correr,un,proceso,de,limpiado],
                 [deshabilite,el,software,o,la,aplicacion,que,pudo,causar,el,problema]
             ]],
            [[algun,driver,",",plug-in,o,firmware,esta,desactualizado],[
@@ -321,7 +424,7 @@ input([[solucion,macbook],[
                 [deshabilite,el,software,o,la,aplicacion,que,pudo,causar,el,problema]
             ]],
            [[algun,dispositivo,periferico,no,es,compatible],[
-                [verifique,que,los,dispositivos,perifericos,puedan,utilizarse,con,su,mac],
+                [verifique,que,los,dispositivos,perifericos,puedan,utilizarse,con,su,dispositivo],
                 [cambie,el,dispositivo,periferico,que,no,sea,compatible]
             ]],
            [[no,esta,donde,estaba,guardado],[
@@ -349,8 +452,8 @@ input([[solucion,iphone],[
                 [cierre,aplicaciones,que,no,necesite,en,este,momento],
                 [borre,aplicaciones,que,no,utilice,frecuentemente]
             ]],
-           [[el,ios,esta,desactualizado],[
-                [actualice,el,ios,a,la,ultima,version,disponible]
+           [[el,iOS,esta,desactualizado],[
+                [actualice,el,iOS,a,la,ultima,version,disponible]
             ]],
            [[la,bateria,esta,dañada],[
                 [lleve,a,revisar,el,dispositivo,para,verificar,el,estado,de,su,bateria],
@@ -385,7 +488,7 @@ input([[solucion,iphone],[
 %Soluciones: Apple Watch
 input([[solucion,applewatch],[
            [[se,encuentra,apagado],[
-                [prenda,y,apague,el,bluetooth,del,celular],
+                [prenda,y,apague,el,bluetooth,del,iPhone],
                 [reconecte,el,dispositivo,con,el,iPhone,y,los,audifonos,si,es,el,caso]
             ]],
            [[no,se,escucha,la,musica],[
@@ -420,28 +523,28 @@ input([[solucion,appstore],[
                 [borre,aplicaciones,que,no,utilice,frecuentemente]
             ]],
            [[no,tiene,fondos],[
-                [agregue,una,tarjeta,credito,o,debito],
+                [agregue,una,tarjeta,de,credito,o,debito],
                 [agregue,una,cuenta,de,paypal],
                 [redima,una,tarjeta,de,regalo,o,codigo]
             ]],
-           [[no,tiene,apple,id],[
-                [creese,un,apple,id]
+           [[no,tiene,appleID],[
+                [creese,un,appleID]
             ]],
-           [[se,estan,utilizando,los,datos,celulares],[
+           [[se,estan,utilizando,los,datos,moviles],[
                 [conectese,al,wifi],
-                [active,la,opcion,de,descargar,aplicaciones,con,los,datos,mobiles]
+                [active,la,opcion,de,descargar,aplicaciones,con,los,datos,moviles]
             ]],
            [[el,sistema,operativo,esta,desactualizado],[
                 [actualice,el,sistema,operativo,a,la,ultima,version,disponible]
             ]],
            [[no,hay,conexion,a,internet],[
-                [conectese,a,una,red,wifi,o,utilice,datos,mobiles],
+                [conectese,a,una,red,wifi,o,utilice,datos,moviles],
                 [active,el,modo,de,avion,y,luego,espere,",",para,salir,de,este,",",uno,a,dos,minutos,despues]
             ]],
            [[la,aplicacion,no,inicia],[
                 [cierre,su,sesion,y,vuelva,a,iniciar,sesion],
                 [cierre,y,vuelva,a,abrir,la,aplicacion],
-                [verifique,si,apple,tiene,problemas,con,el,servidor,del,app,store]
+                [verifique,si,apple,tiene,problemas,con,el,servidor,del,servicio]
             ]],
            [[no,es,actualizada,automaticamente],[
                 [active,la,opcion,para,actualizar,las,aplicaciones,automaticamente,en,ajustes]
@@ -460,12 +563,12 @@ input([[solucion,appstore],[
 input([[solucion,applemusic],[
            [[no,hay,fondos,suficientes,para,pagar,la,suscripcion],[
                 [cambie,de,plan,mensual,a,uno,que,cumpla,con,su,presupuesto],
-                [agregue,una,tarjeta,credito,o,debito],
+                [agregue,una,tarjeta,de,credito,o,debito],
                 [agregue,una,cuenta,de,paypal],
                 [redima,una,tarjeta,de,regalo,o,codigo]
             ]],
            [[no,hay,conexion,a,internet],[
-                [conectese,a,una,red,wifi,o,utilice,datos,mobiles],
+                [conectese,a,una,red,wifi,o,utilice,datos,moviles],
                 [active,el,modo,de,avion,y,luego,espere,",",para,salir,de,este,",",uno,a,dos,minutos,despues]
             ]],
            [[el,sistema,operativo,esta,desactualizado],[
@@ -499,84 +602,95 @@ input([[solucion,applemusic],[
 
 %Referencias: Macbook
 input([[referencia,macbook],[
-           [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+           [[no,se,reconocen,unidades,externas],[
+                [[puertos],["https://support.apple.com/es-es/HT207443"]],
+                [[acceder,a,un,usb,que,no,aparece],["https://www.macworld.es/tutoriales/mac/acceder-disco-externo-no-aparece-mac-3685554/"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/mac"]]
             ]],
-            [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+            [[se,reinicia,por,cuenta,propia],[
+                [[preparacion,de,mac,para,reparacion],["https://support.apple.com/es-es/HT209095"]],
+                [[reiniciado,debido,a,un,problema],["https://support.apple.com/es-es/HT200553"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/mac"]]
             ]],
-           [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+           [[algunos,archivos,estan,desaparecidos],[
+                [[copias,de,seguridad],["https://support.apple.com/es-es/mac-backup"]],
+                [[configurar,iCloud,drive],["https://support.apple.com/es-es/HT204025"]],
+                [[comunidad],["https://communities.apple.com/es/thread/160029078"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/mac"]]
             ]]
        ]]).
 
 %Referencias: iPhone
 input([[referencia,iphone],[
-           [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+           [[se,produce,una,respuesta,lenta],[
+                [[dispositivo,va,lento],["https://www.ipadizate.es/2018/07/06/como-acelerar-iphone-lento/"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/iphone"]]
             ]],
-            [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+            [[no,carga],[
+                [[bateria,y,rendimiento],["https://support.apple.com/es-es/HT208387"]],
+                [[bateria,no,carga],["https://www.macworld.es/tutoriales/iphone/iphone-no-carga-bateria-3675545/"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/iphone"]]
             ]],
-           [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+           [[no,responde],[
+                [[problemas,de,pantalla],["https://support.apple.com/es-es/HT201406"]],
+                [[pantalla,bloqueada],["https://support.apple.com/es-es/HT201412"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/iphone"]]
             ]]
        ]]).
 
 %Referencias: Apple Watch
 input([[referencia,applewatch],[
-           [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+           [[el,bluetooth,es,inconsistente],[
+                [[si,dispositivo,no,esta,conectado],["https://support.apple.com/es-es/HT205025"]],
+                [[conexiones,bluetooth],["https://support.apple.com/es-es/HT204562"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/watch"]]
             ]],
-            [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+            [[se,produce,una,respuesta,lenta],[
+                [[aumentar,el,rendimiento],["https://www.smartwatchzone.net/acelerar-apple-watch/"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/watch"]]
             ]],
-           [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+           [[la,bateria,se,descarga,rapidamente],[
+                [[no,carga,o,enciende],["https://support.apple.com/es-es/HT204640"]],
+                [[maximizar,duracion,y,vida,util],["https://www.apple.com/la/batteries/maximizing-performance/"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/watch"]]
             ]]
        ]]).
 
 %Referencias: App Store
 input([[referencia,appstore],[
-           [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+           [[la,aplicacion,no,funciona],[
+                [[suscripciones,y,compras],["https://support.apple.com/es-es/billing"]],
+                [[descargar,aplicaciones,y,juegos],["https://support.apple.com/es-es/HT204266"]],
+                [[aplicacion,no,se,descaga,correctamente],["https://www.applesfera.com/tutoriales/9-cosas-que-puedes-probar-si-una-app-no-se-te-actualiza-o-descarga-correctamente-en-ios"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/apps"]]
             ]],
-            [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+           [[no,se,conecta],[
+                [[no,se,puede,conectar,al,servicio],["https://support.apple.com/es-es/HT201400"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/apps"]]
             ]],
-           [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+           [[las,aplicaciones,estan,desactualizadas],[
+                [[ponerse,en,contacto,con,el,desarrollador],["https://support.apple.com/es-es/HT207959"]],
+                [[actualizaciones,automaticas],["https://support.apple.com/es-es/HT202180"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/apps"]]
             ]]
        ]]).
 
 %Referencias: Apple Music
 input([[referencia,applemusic],[
-           [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+           [[no,se,pueden,bajar,aplicaciones],[
+                [[primeros,pasos],["https://support.apple.com/es-es/music/using-apple-music"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/music/using-apple-music"]]
             ]],
-            [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+           [[no,se,reproducen,canciones],[
+                [[comunidad],["https://communities.apple.com/es/thread/250086640"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/music/using-apple-music"]]
             ]],
-           [[problema],[
-                [[descripcion],[link]],
-                [[descripcion],[link]]
+           [[no,se,guardan,canciones],[
+                [[añadir,y,descargar,musica],["https://support.apple.com/es-es/HT204839"]],
+                [[escuchar,offline],["https://www.actualidadiphone.com/como-guardar-canciones-de-apple-music-para-escuchar-offline/"]],
+                [[soporte,tecnico],["https://support.apple.com/es-es/music/using-apple-music"]]
             ]]
        ]]).
-
 
 
 /*****************************************************************************/
