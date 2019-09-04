@@ -176,7 +176,30 @@ sujetos([
 
 
 %Verbos
-verbos([]).
+verbos([
+    abrir,acceder,acepte,active,actualice,actualizada,actualizan,actualizar,agregar,agregue,apague,aparece,aparecen,aumentar,
+    bajar,borre,busque,
+    cambie,cambio,carga,cargan,cargando,causar,cierre,comprometa,conecta,conectar,conectarse,conectelo,conectese,
+    configurar,considere,contacte,continua,correr,corriendo,cree,creese,cumpla,
+    debido,desaparecieron,descarga,descargar,descargue,desconecte,desconectese,deshabilite,
+    elimine,encender,enciende,encontraba,encuentra,encuentran,encuentre,encuentro,es,
+    escucha,escuchar,espere,esta,estaba,estan,este,extraviaron,
+    facilitar,funciona,funcionando,funcionar,
+    golpeo,guardado,guardan,guardar,guarde,
+    hacer,hay,
+    incremente,indicarme,indiqueme,ingresar,inicia,iniciar,inicie,instale,intente,investigar,
+    limite,limpie,lleve,llevelo,logro,
+    maximizar,monitoreo,
+    necesite,
+    pagar,parece,paro,pasar,pasarme,podria,ponerse,prenda,preparacion,probarlo,produce,pruebe,pudo,puedan,puede,pueden,puedo,
+    quiere,
+    reciben,recibir,reconecte,reconocen,redima,reinicia,reiniciado,reinicia,reinicie,reinicio,
+    reinstale,rendir,reparacion,reproducen,reproducidas,reproducir,responde,responder,respondiendo,retornelo,revisar,revise,rinde,
+    salir,se,sea,seran,son,soportar,suenan,
+    tendra,tenga,tengo,teniendo,tiene,
+    usa,uso,utilice,utilizando,utilizarse,
+    va,vemos,venga,verificar,verifique,vuelva,vuelvase
+]).
 
 
 
@@ -405,7 +428,7 @@ input([[solucion,macbook],[
                 [conectelo,en,el,puerto,deseado]
             ]],
            [[no,se,enciende],[
-                [conectelo,en,algun,otro,puerto],
+                [conectelo,en,otro,puerto],
                 [intente,probarlo,en,otra,maquina],
                 [llevelo,a,revisar,si,continua,sin,encender]
             ]],
@@ -415,6 +438,7 @@ input([[solucion,macbook],[
                 [instale,los,drivers,necesarios,del,dispositivo]
             ]],
            [[se,encuentran,corriendo,muchos,programas,a,la,vez],[
+                [incremente,la,memoria,ram],
                 [incremente,el,espacio,de,memoria],
                 [inicie,el,dispositivo,en,modo,seguro,para,correr,un,proceso,de,limpiado],
                 [deshabilite,el,software,o,la,aplicacion,que,pudo,causar,el,problema]
@@ -424,7 +448,7 @@ input([[solucion,macbook],[
                 [deshabilite,el,software,o,la,aplicacion,que,pudo,causar,el,problema]
             ]],
            [[algun,dispositivo,periferico,no,es,compatible],[
-                [verifique,que,los,dispositivos,perifericos,puedan,utilizarse,con,su,dispositivo],
+                [verifique,que,los,dispositivos,perifericos,puedan,utilizarse,con,el,dispositivo],
                 [cambie,el,dispositivo,periferico,que,no,sea,compatible]
             ]],
            [[no,esta,donde,estaba,guardado],[
@@ -438,7 +462,7 @@ input([[solucion,macbook],[
            [[el,archivo,esta,corrupto],[
                 [cree,un,respaldo,de,los,archivos,que,usted,considere,necesarios],
                 [guarde,en,un,disco,externo,los,archivos,que,usted,considere,necesarios],
-                [utilice,iCloud,para,hacer,un,respaldo,o,guardar,archivos]
+                [utilice,iCloud,para,hacer,un,respaldo,o,para,guardar,archivos]
             ]]
        ]]).
 
@@ -449,7 +473,7 @@ input([[solucion,iphone],[
                 [borre,aplicaciones,que,no,utilice,frecuentemente]
             ]],
            [[la,memoria,ram,es,insuficiente],[
-                [cierre,aplicaciones,que,no,necesite,en,este,momento],
+                [cierre,aplicaciones,que,no,necesite,en,el,momento],
                 [borre,aplicaciones,que,no,utilice,frecuentemente]
             ]],
            [[el,iOS,esta,desactualizado],[
