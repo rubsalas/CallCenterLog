@@ -35,17 +35,17 @@
 % -> solucion
 %
 % entrada([[key,subkey],[
-%              [problema1/causa1,[
+%              [[problema1/causa1],[
 %                  [causa/solucion,1],
 %                  [causa/solucion,2],
 %                  ...
 %                  [causa/solucion,N]
 %               ]],
-%              [problema2/causa2,[
+%              [[problema2/causa2],[
 %                  ...
 %               ]],
 %              ...
-%              [problemaN/causaN,[
+%              [[problemaN/causaN],[
 %                  ...
 %               ]]
 %          ]]).
@@ -132,47 +132,32 @@ determinantes([
               ]).
 
 
-%Sujetos Repetidos
-%Separados por mencion en dispositivo
-sujetosRepetidos([
- %Macbook
-    aplicacion,archivo,archivos,buscador,comunidad,copias,disco,dispositivo,driver,drivers,
-    espacio,firmware,folder,iCloud,maquina,memoria,plug-in,problema,programas,proceso,
-    puerto,puertos,respaldo,sistema,software,soporte,unidades,usb,
- %iPhone
-    almacenamiento,ajuste,aplicacion,aplicaciones,bateria,cargador,componente,
-    dispositivo,fotos,fuente,galeria,iOS,memoria,pantalla,problema,
-    puerto,rendimiento,respuesta,soporte,version,videos,
- %AppleWatch
-    ahorro,aplicaciones,audifonos,bateria,bluetooth,conexiones,corazon,dispositivo,duracion,
-    energia,iPhone,modo,monitoreo,musica,notificaciones,rendimiento,respuesta,ritmo,
-    soporte,tiempo,vida,watchOS,wifi,
- %AppStore
-    actualizaciones,almacenamiento,aplicacion,aplicaciones,apple,appleID,avion,codigo,compras,
-    conexion,credito,cuenta,datos,debito,desarrollador,dispositivo,fondos,fotos,galeria,
-    internet,juegos,minutos,modo,moviles,necesidades,opcion,paypal,red,regalo,servicio,
-    servidor,sesion,sistema,soporte,suscripciones,tarjeta,version,versiones,videos,wifi,
- %AppleMusic
-    ajustes,almacenamiento,aplicacion,avion,cancion,canciones,codigo,comunidad,conexion,credito,
-    cuenta,datos,debito,dispositivo,fondos,fotos,galeria,iCloud,internet,library,minutos,modo,
-    music,musica,pais,pasos,paypal,plan,presupuesto,red,regalo,region,sistema,soporte,
-    suscripcion,tarjeta,version,videos,volumen,wifi
-]).
-
 
 %Sujetos Unicos
 %Solo estan una vez, se encuentran todos los de los dispositivos
 sujetos([
-    actualizaciones,ahorro,almacenamiento,ajuste,ajustes,aplicacion,aplicaciones,apple,appleID,
-    archivo,archivos,audifonos,avion,bateria,bluetooth,buscador,cancion,canciones,cargador,codigo,
-    componente,compras,comunidad,conexion,conexiones,copias,corazon,credito,cuenta,datos,debito,
-    desarrollador,disco,dispositivo,driver,drivers,duracion,energia,espacio,firmware,folder,
-    fondos,fotos,fuente,galeria,iCloud,internet,iOS,iPhone,juegos,library,maquina,memoria,minutos,
-    modo,monitoreo,moviles,music,musica,necesidades,notificaciones,opcion,pais,pantalla,pasos,
-    paypal,plan,plug-in,presupuesto,problema,programas,proceso,puerto,puertos,red,regalo,region,
-    rendimiento,respaldo,respuesta,ritmo,servicio,servidor,sesion,sistema,software,soporte,suscripcion,
-    suscripciones,tarjeta,tiempo,unidades,usb,version,versiones,vida,videos,volumen,watchOS,wifi
+    actualizaciones,ahorro,almacenamiento,ajuste,ajustes,aplicacion,aplicaciones,apple,appleID,archivo,archivos,audifonos,avion,
+    bateria,bluetooth,buscador,
+    cancion,canciones,cargador,codigo,componente,compras,comunidad,conexion,conexiones,copias,corazon,credito,cuenta,
+    datos,debito,desarrollador,disco,dispositivo,driver,drivers,duracion,
+    energia,espacio,
+    firmware,folder,fondos,fotos,fuente,
+    galeria,
+    iCloud,internet,iOS,iPhone,
+    juegos,
+    library,
+    maquina,memoria,minutos,modo,monitoreo,moviles,music,musica,
+    necesidades,notificaciones,
+    opcion,
+    pais,pantalla,pasos,paypal,plan,plug-in,presupuesto,problema,programas,proceso,puerto,puertos,
+    red,regalo,region,rendimiento,respaldo,respuesta,ritmo,
+    servicio,servidor,sesion,sistema,software,soporte,suscripcion,suscripciones,
+    tarjeta,tiempo,
+    unidades,usb,
+    version,versiones,vida,videos,volumen,
+    watchOS,wifi
 ]).
+
 
 
 %Verbos
@@ -200,8 +185,6 @@ verbos([
     usa,uso,utilice,utilizando,utilizarse,
     va,vemos,venga,verificar,verifique,vuelva,vuelvase
 ]).
-
-
 
 
 
@@ -316,7 +299,7 @@ input([[problema,applemusic],[
  */
 
 %Causas: Macbook
-input([[causa,macbook],[
+output([[causa,macbook],[
            [[no,se,reconocen,unidades,externas],[
                 [se,encuentra,desconectado],
                 [no,se,enciende],
@@ -335,7 +318,7 @@ input([[causa,macbook],[
        ]]).
 
 %Causas: iPhone
-input([[causa,iphone],[
+output([[causa,iphone],[
            [[se,produce,una,respuesta,lenta],[
                 [el,almacenamiento,esta,lleno],
                 [la,memoria,ram,es,insuficiente],
@@ -357,7 +340,7 @@ input([[causa,iphone],[
        ]]).
 
 %Causas: Apple Watch
-input([[causa,applewatch],[
+output([[causa,applewatch],[
            [[el,bluetooth,es,inconsistente],[
                 [se,encuentra,apagado],
                 [no,se,escucha,la,musica]
@@ -375,7 +358,7 @@ input([[causa,applewatch],[
        ]]).
 
 %Causas: App Store
-input([[causa,appstore],[
+output([[causa,appstore],[
            [[no,se,pueden,bajar,aplicaciones],[
                 [el,almacenamiento,esta,lleno],
                 [no,tiene,fondos],
@@ -398,7 +381,7 @@ input([[causa,appstore],[
        ]]).
 
 %Causas: Apple Music
-input([[causa,applemusic],[
+output([[causa,applemusic],[
            [[la,aplicacion,no,funciona],[
                 [no,hay,fondos,suficientes,para,pagar,la,suscripcion],
                 [no,hay,conexion,a,internet],
@@ -423,7 +406,7 @@ input([[causa,applemusic],[
  */
 
 %Soluciones: Macbook
-input([[solucion,macbook],[
+output([[solucion,macbook],[
            [[se,encuentra,desconectado],[
                 [conectelo,en,el,puerto,deseado]
             ]],
@@ -467,7 +450,7 @@ input([[solucion,macbook],[
        ]]).
 
 %Soluciones: iPhone
-input([[solucion,iphone],[
+output([[solucion,iphone],[
            [[el,almacenamiento,esta,lleno],[
                 [elimine,fotos,y,videos,de,la,galeria],
                 [borre,aplicaciones,que,no,utilice,frecuentemente]
@@ -510,7 +493,7 @@ input([[solucion,iphone],[
        ]]).
 
 %Soluciones: Apple Watch
-input([[solucion,applewatch],[
+output([[solucion,applewatch],[
            [[se,encuentra,apagado],[
                 [prenda,y,apague,el,bluetooth,del,iPhone],
                 [reconecte,el,dispositivo,con,el,iPhone,y,los,audifonos,si,es,el,caso]
@@ -541,7 +524,7 @@ input([[solucion,applewatch],[
        ]]).
 
 %Soluciones: App Store
-input([[solucion,appstore],[
+output([[solucion,appstore],[
            [[el,almacenamiento,esta,lleno],[
                 [elimine,fotos,y,videos,de,la,galeria],
                 [borre,aplicaciones,que,no,utilice,frecuentemente]
@@ -584,7 +567,7 @@ input([[solucion,appstore],[
        ]]).
 
 %Soluciones: Apple Music
-input([[solucion,applemusic],[
+output([[solucion,applemusic],[
            [[no,hay,fondos,suficientes,para,pagar,la,suscripcion],[
                 [cambie,de,plan,mensual,a,uno,que,cumpla,con,su,presupuesto],
                 [agregue,una,tarjeta,de,credito,o,debito],
@@ -625,7 +608,7 @@ input([[solucion,applemusic],[
  */
 
 %Referencias: Macbook
-input([[referencia,macbook],[
+output([[referencia,macbook],[
            [[no,se,reconocen,unidades,externas],[
                 [[puertos],["https://support.apple.com/es-es/HT207443"]],
                 [[acceder,a,un,usb,que,no,aparece],["https://www.macworld.es/tutoriales/mac/acceder-disco-externo-no-aparece-mac-3685554/"]],
@@ -645,7 +628,7 @@ input([[referencia,macbook],[
        ]]).
 
 %Referencias: iPhone
-input([[referencia,iphone],[
+output([[referencia,iphone],[
            [[se,produce,una,respuesta,lenta],[
                 [[dispositivo,va,lento],["https://www.ipadizate.es/2018/07/06/como-acelerar-iphone-lento/"]],
                 [[soporte,tecnico],["https://support.apple.com/es-es/iphone"]]
@@ -663,7 +646,7 @@ input([[referencia,iphone],[
        ]]).
 
 %Referencias: Apple Watch
-input([[referencia,applewatch],[
+output([[referencia,applewatch],[
            [[el,bluetooth,es,inconsistente],[
                 [[si,dispositivo,no,esta,conectado],["https://support.apple.com/es-es/HT205025"]],
                 [[conexiones,bluetooth],["https://support.apple.com/es-es/HT204562"]],
@@ -681,7 +664,7 @@ input([[referencia,applewatch],[
        ]]).
 
 %Referencias: App Store
-input([[referencia,appstore],[
+output([[referencia,appstore],[
            [[la,aplicacion,no,funciona],[
                 [[suscripciones,y,compras],["https://support.apple.com/es-es/billing"]],
                 [[descargar,aplicaciones,y,juegos],["https://support.apple.com/es-es/HT204266"]],
@@ -700,7 +683,7 @@ input([[referencia,appstore],[
        ]]).
 
 %Referencias: Apple Music
-input([[referencia,applemusic],[
+output([[referencia,applemusic],[
            [[no,se,pueden,bajar,aplicaciones],[
                 [[primeros,pasos],["https://support.apple.com/es-es/music/using-apple-music"]],
                 [[soporte,tecnico],["https://support.apple.com/es-es/music/using-apple-music"]]
