@@ -1,3 +1,4 @@
+%Consulta el archivo con las bases de datos
 :-consult(database).
 
 
@@ -156,27 +157,84 @@ read_atomics(ListOfAtomics) :-
 
 
 
-%Verificacion de BNF
+/*****************************************************************************/
+%
+% Verificacion de BNF's
+%
+
 
 % sintagma_nominal + sintagma_verbal
 oracion(S0,S):- sintagma_nominal(S0,S1), sintagma_verbal(S1,S).
+%
+% Crear aca otras oraciones con los saludos, despedidas y preguntas que
+% tienen otro formato diferente a las oraciones con sintagmas definidos.
+%
 
 
-% Sintagma Nominal:
+
+% Sintagmas Nominales:
+%
 % Determinante
 sintagma_nominal(S0,S):- determinante(S0,S).
+%
 % Sujeto
 sintagma_nominal(S0,S):- sujeto(S0,S).
+%
 % Determinante + Sujeto
-sintagma_nominal(S0,S):- determinante(S0,S1),sujeto(S1,S).%,write("P<<"),nl,pth(S).
+sintagma_nominal(S0,S):- determinante(S0,S1),sujeto(S1,S).
+%
 
 
-% Sintagma Verbal:
+
+% Sintagmas Verbales:
+%
 % Verbo
 sintagma_verbal(S0,S):- verbo(S0,S).
+%
 % Verbo + Sintagma Nominal
 sintagma_verbal(S0,S):- verbo(S0,S1), sintagma_nominal(S1,S).
+%
+% Verbo + Adjetivo
+sintagma_verbal(S0,S):- verbo(S0,S1), adjetivo(S1,S).
+%
+% Verbo + Sintagma Nominal + Adjetivo
+sintagma_verbal(S0,S):- verbo(S0,S1), sintagma_nominal(S1,S2), adjetivo(S2,S).
+%
+% Negacion + Verbo
+sintagma_verbal(S0,S):- negacion(S0,S1), verbo(S1,S).
+%
+% Negacion + Verbo + Sintagma Nominal
+sintagma_verbal(S0,S):- negacion(S0,S1), verbo(S1,S2), sintagma_nominal(S2,S).
+%
+% Determinante(se) + Verbo
+sintagma_verbal(S0,S):- determinante(S0,S1), verbo(S1,S).
+%
+% Determinante(se) + Verbo + Sintagma Nominal
+sintagma_verbal(S0,S):- determinante(S0,S1), verbo(S1,S2), sintagma_nominal(S2,S).
+%
+% Determinante(se) + Verbo + Adjetivo
+sintagma_verbal(S0,S):- determinante(S0,S1), verbo(S1,S2), adjetivo(S2,S).
+%
+% Negacion + Determinante(se) + Verbo
+sintagma_verbal(S0,S):- negacion(S0,S1), determinante(S1,S2), verbo(S2,S).
+%
+% Negacion + Determinante(se) + Verbo + Sintagma Nominal
+sintagma_verbal(S0,S):- negacion(S0,S1), determinante(S1,S2), verbo(S2,S3), sintagma_nominal(S3,S).
+%
 
+
+
+%
+% Se podrian definir aca los casos "alambrados" de saludos y despedidas
+% para la verificacion
+%
+
+
+
+/*****************************************************************************/
+%
+% Verificaciones de pertenencia en base de datos (archivo database.pl)
+%
 
 % Busca la pertenencia del determinante obtenido, en la base de datos
 determinante([X|S],S) :- miembroDet(X).
@@ -186,6 +244,21 @@ sujeto([X|S],S) :- miembroSuj(X).
 
 % Busca la pertenencia del verbo obtenido, en la base de datos
 verbo([X|S],S) :- miembroVer(X).
+
+% Busca la pertenencia del adjetivo obtenido, en la base de datos
+adjetivo([X|S],S) :- miembroAdj(X).
+
+% Busca la pertenencia de la afirmacion obtenido, en la base de datos
+afirmacion([X|S],S) :- miembroAfi(X).
+
+% Busca la pertenencia de la negacion obtenido, en la base de datos
+negacion([X|S],S) :- miembroNeg(X).
+
+% Busca la pertenencia del inicio obtenido, en la base de datos
+inicio([X|S],S) :- miembroIni(X).
+
+% Busca la pertenencia del fin obtenido, en la base de datos
+fin([X|S],S) :- miembroFin(X).
 
 
 pth([]):- nl.

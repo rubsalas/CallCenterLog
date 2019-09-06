@@ -133,7 +133,6 @@ determinantes([
               ]).
 
 
-
 %Sujetos Unicos
 %Solo estan una vez, se encuentran todos los de los dispositivos
 sujetos([
@@ -189,40 +188,48 @@ verbos([
 ]).
 
 
+%Adjetivos
+adjetivos([
+    inconsistente,lenta,lentamente,lento,rapida,rapidamente,rapido,sola
+]).
 
-/*
- * Inicio
- */
+
+%Afirmacion
+afirmaciones([
+    claro,definitivamente,desde,luego,efectivamente,obviamente,
+    por,supuesto,seguramente,sí,tambien
+]).
+
+
+%Negacion
+negaciones([
+    jamas,no,nunca,tampoco
+]).
+
 
 %Inicio de Conversacion
-input([[inicio],[
-           [hola],
-           [buenos,dias],
-           [buenas,tardes],
-           [buenas,noches],
-           [buen,dia],
-           [feliz,dia]
-      ]]).
+inicios([
+       hola,
+       saludos,
+       buenos,dias,
+       buenas,tardes,
+       noches,
+       buen,dia,
+       feliz,dia
+]).
 
-
-
-/*
- * Fin
- */
 
 %Fin de Conversacion
-input([[fin],[
-           [gracias],
-           [muchas,gracias],
-           [muchisimas,gracias],
-           [adios],
-           [nos,vemos],
-           [saludos],
-           [hasta,pronto],
-           [hasta,luego],
-           [hasta,mañana],
-           [hasta,la,proxima]
-       ]]).
+finales([
+    muchas,
+    muchisimas,gracias,
+    adios,
+    nos,vemos,
+    saludos,
+    hasta,pronto,
+    luego,
+    mañana
+]).
 
 
 
@@ -261,35 +268,35 @@ input([[pregunta,producto],[
 
 %Problemas: Macbook
 input([[problema,macbook],[
-           [no,se,reconocen,unidades,externas],
-           [se,reinicia,por,cuenta,propia],
-           [algunos,archivos,estan,desaparecidos]
+           [no,reconoce,unidades,externas],
+           [se,reinicia,sola],
+           [se,desaparecen,archivos]
        ]]).
 
 %Problemas: iPhone
 input([[problema,iphone],[
-           [se,produce,una,respuesta,lenta],
+           [responde,lentamente],
            [no,carga],
            [no,responde]
        ]]).
 
 %Problemas: Apple Watch
 input([[problema,applewatch],[
-           [el,bluetooth,es,inconsistente],
-           [se,produce,una,respuesta,lenta],
-           [la,bateria,se,descarga,rapidamente]
+           [tiene,bluetooth,inconsistente],
+           [responde,lentamente],
+           [se,descarga,rapidamente]
        ]]).
 
 %Problemas: App Store
 input([[problema,appstore],[
-           [no,se,pueden,bajar,aplicaciones],
+           [no,se,descargan,aplicaciones],
            [no,se,conecta],
-           [las,aplicaciones,estan,desactualizadas]
+           [no,se,actualizan,aplicaciones]
        ]]).
 
 %Problemas: Apple Music
 input([[problema,applemusic],[
-           [la,aplicacion,no,funciona],
+           [no,funciona,la,aplicacion],
            [no,se,reproducen,canciones],
            [no,se,guardan,canciones]
        ]]).
@@ -302,17 +309,17 @@ input([[problema,applemusic],[
 
 %Causas: Macbook
 output([[causa,macbook],[
-           [[no,se,reconocen,unidades,externas],[
+           [[no,reconoce,unidades,externas],[
                 [se,encuentra,desconectado],
                 [no,se,enciende],
                 [no,se,encuentra,en,el,buscador]
             ]],
-           [[se,reinicia,por,cuenta,propia],[
+           [[se,reinicia,sola],[
                 [se,encuentran,corriendo,muchos,programas,a,la,vez],
                 [algun,driver,",",plug-in,o,firmware,esta,desactualizado],
                 [algun,dispositivo,periferico,no,es,compatible]
             ]],
-           [[algunos,archivos,estan,desaparecidos],[
+           [[se,desaparecen,archivos],[
                 [no,esta,donde,estaba,guardado],
                 [el,folder,esta,vacio],
                 [el,archivo,esta,corrupto]
@@ -321,7 +328,7 @@ output([[causa,macbook],[
 
 %Causas: iPhone
 output([[causa,iphone],[
-           [[se,produce,una,respuesta,lenta],[
+           [[responde,lentamente],[
                 [el,almacenamiento,esta,lleno],
                 [la,memoria,ram,es,insuficiente],
                 [el,iOS,esta,desactualizado],
@@ -343,16 +350,16 @@ output([[causa,iphone],[
 
 %Causas: Apple Watch
 output([[causa,applewatch],[
-           [[el,bluetooth,es,inconsistente],[
+           [[tiene,bluetooth,inconsistente],[
                 [se,encuentra,apagado],
                 [no,se,escucha,la,musica]
             ]],
-           [[se,produce,una,respuesta,lenta],[
+           [[responde,lentamente],[
                 [hay,muchas,aplicaciones,abiertas],
                 [se,usa,el,wifi,para,conectar,con,el,iPhone],
                 [el,watchOS,esta,desactualizado]
             ]],
-           [[la,bateria,se,descarga,rapidamente],[
+           [[se,descarga,rapidamente],[
                 [se,reciben,muchas,notificaciones],
                 [se,usa,el,wifi,para,conectar,con,el,iPhone],
                 [el,monitoreo,del,ritmo,del,corazon,esta,en,uso]
@@ -361,7 +368,7 @@ output([[causa,applewatch],[
 
 %Causas: App Store
 output([[causa,appstore],[
-           [[no,se,pueden,bajar,aplicaciones],[
+           [[no,se,descargan,aplicaciones],[
                 [el,almacenamiento,esta,lleno],
                 [no,tiene,fondos],
                 [no,tiene,appleID],
@@ -373,7 +380,7 @@ output([[causa,appstore],[
                 [la,aplicacion,no,inicia],
                 [el,sistema,operativo,esta,desactualizado]
             ]],
-           [[las,aplicaciones,estan,desactualizadas],[
+           [[no,se,actualizan,aplicaciones],[
                 [no,hay,conexion,a,internet],
                 [el,almacenamiento,esta,lleno],
                 [no,es,actualizada,automaticamente],
@@ -384,7 +391,7 @@ output([[causa,appstore],[
 
 %Causas: Apple Music
 output([[causa,applemusic],[
-           [[la,aplicacion,no,funciona],[
+           [[no,funciona,la,aplicacion],[
                 [no,hay,fondos,suficientes,para,pagar,la,suscripcion],
                 [no,hay,conexion,a,internet],
                 [el,sistema,operativo,esta,desactualizado]
@@ -611,17 +618,17 @@ output([[solucion,applemusic],[
 
 %Referencias: Macbook
 output([[referencia,macbook],[
-           [[no,se,reconocen,unidades,externas],[
+           [[no,reconoce,unidades,externas],[
                 [[puertos],["https://support.apple.com/es-es/HT207443"]],
                 [[acceder,a,un,usb,que,no,aparece],["https://www.macworld.es/tutoriales/mac/acceder-disco-externo-no-aparece-mac-3685554/"]],
                 [[soporte,tecnico],["https://support.apple.com/es-es/mac"]]
             ]],
-            [[se,reinicia,por,cuenta,propia],[
+            [[se,reinicia,sola],[
                 [[preparacion,de,mac,para,reparacion],["https://support.apple.com/es-es/HT209095"]],
                 [[reiniciado,debido,a,un,problema],["https://support.apple.com/es-es/HT200553"]],
                 [[soporte,tecnico],["https://support.apple.com/es-es/mac"]]
             ]],
-           [[algunos,archivos,estan,desaparecidos],[
+           [[se,desaparecen,archivos],[
                 [[copias,de,seguridad],["https://support.apple.com/es-es/mac-backup"]],
                 [[configurar,iCloud,drive],["https://support.apple.com/es-es/HT204025"]],
                 [[comunidad],["https://communities.apple.com/es/thread/160029078"]],
@@ -631,7 +638,7 @@ output([[referencia,macbook],[
 
 %Referencias: iPhone
 output([[referencia,iphone],[
-           [[se,produce,una,respuesta,lenta],[
+           [[responde,lentamente],[
                 [[dispositivo,va,lento],["https://www.ipadizate.es/2018/07/06/como-acelerar-iphone-lento/"]],
                 [[soporte,tecnico],["https://support.apple.com/es-es/iphone"]]
             ]],
@@ -649,16 +656,16 @@ output([[referencia,iphone],[
 
 %Referencias: Apple Watch
 output([[referencia,applewatch],[
-           [[el,bluetooth,es,inconsistente],[
+           [[tiene,bluetooth,inconsistente],[
                 [[si,dispositivo,no,esta,conectado],["https://support.apple.com/es-es/HT205025"]],
                 [[conexiones,bluetooth],["https://support.apple.com/es-es/HT204562"]],
                 [[soporte,tecnico],["https://support.apple.com/es-es/watch"]]
             ]],
-            [[se,produce,una,respuesta,lenta],[
+            [[responde,lentamente],[
                 [[aumentar,el,rendimiento],["https://www.smartwatchzone.net/acelerar-apple-watch/"]],
                 [[soporte,tecnico],["https://support.apple.com/es-es/watch"]]
             ]],
-           [[la,bateria,se,descarga,rapidamente],[
+           [[se,descarga,rapidamente],[
                 [[no,carga,o,enciende],["https://support.apple.com/es-es/HT204640"]],
                 [[maximizar,duracion,y,vida,util],["https://www.apple.com/la/batteries/maximizing-performance/"]],
                 [[soporte,tecnico],["https://support.apple.com/es-es/watch"]]
@@ -667,7 +674,7 @@ output([[referencia,applewatch],[
 
 %Referencias: App Store
 output([[referencia,appstore],[
-           [[la,aplicacion,no,funciona],[
+           [[no,se,descargan,aplicaciones],[
                 [[suscripciones,y,compras],["https://support.apple.com/es-es/billing"]],
                 [[descargar,aplicaciones,y,juegos],["https://support.apple.com/es-es/HT204266"]],
                 [[aplicacion,no,se,descaga,correctamente],["https://www.applesfera.com/tutoriales/9-cosas-que-puedes-probar-si-una-app-no-se-te-actualiza-o-descarga-correctamente-en-ios"]],
@@ -677,7 +684,7 @@ output([[referencia,appstore],[
                 [[no,se,puede,conectar,al,servicio],["https://support.apple.com/es-es/HT201400"]],
                 [[soporte,tecnico],["https://support.apple.com/es-es/apps"]]
             ]],
-           [[las,aplicaciones,estan,desactualizadas],[
+           [[no,se,actualizan,aplicaciones],[
                 [[ponerse,en,contacto,con,el,desarrollador],["https://support.apple.com/es-es/HT207959"]],
                 [[actualizaciones,automaticas],["https://support.apple.com/es-es/HT202180"]],
                 [[soporte,tecnico],["https://support.apple.com/es-es/apps"]]
@@ -686,7 +693,7 @@ output([[referencia,appstore],[
 
 %Referencias: Apple Music
 output([[referencia,applemusic],[
-           [[no,se,pueden,bajar,aplicaciones],[
+           [[no,funciona,la,aplicacion],[
                 [[primeros,pasos],["https://support.apple.com/es-es/music/using-apple-music"]],
                 [[soporte,tecnico],["https://support.apple.com/es-es/music/using-apple-music"]]
             ]],
@@ -724,3 +731,24 @@ miembroSuj(X) :- sujetos(S), miembro(X,S).
 % Regla que simplifica la verificacion de pertenencia de algun
 % verbo con la base de datos correspondiente.
 miembroVer(X) :- verbos(V), miembro(X,V).
+
+% Regla que simplifica la verificacion de pertenencia de algun
+% adjetivo con la base de datos correspondiente.
+miembroAdj(X) :- adjetivos(A), miembro(X,A).
+
+% Regla que simplifica la verificacion de pertenencia de alguna
+% afirmacion con la base de datos correspondiente.
+miembroAfi(X) :- afirmaciones(A), miembro(X,A).
+
+% Regla que simplifica la verificacion de pertenencia de alguna
+% negacion con la base de datos correspondiente.
+miembroNeg(X) :- negaciones(N), miembro(X,N).
+
+% Regla que simplifica la verificacion de pertenencia de algun
+% inicio con la base de datos correspondiente.
+miembroIni(X) :- inicios(I), miembro(X,I).
+
+% Regla que simplifica la verificacion de pertenencia de algun
+% fin con la base de datos correspondiente.
+miembroFin(X) :- finales(F), miembro(X,F).
+

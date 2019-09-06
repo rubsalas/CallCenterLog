@@ -133,7 +133,6 @@ determinantes([
               ]).
 
 
-
 %Sujetos Unicos
 %Solo estan una vez, se encuentran todos los de los dispositivos
 sujetos([
@@ -189,40 +188,48 @@ verbos([
 ]).
 
 
+%Adjetivos
+adjetivos([
+    inconsistente,lenta,lentamente,lento,rapida,rapidamente,rapido,sola
+]).
 
-/*
- * Inicio
- */
+
+%Afirmacion
+afirmaciones([
+    claro,definitivamente,desde,luego,efectivamente,obviamente,
+    por,supuesto,seguramente,sí,tambien
+]).
+
+
+%Negacion
+negaciones([
+    jamas,no,nunca,tampoco
+]).
+
 
 %Inicio de Conversacion
-input([[inicio],[
-           [hola],
-           [buenos,dias],
-           [buenas,tardes],
-           [buenas,noches],
-           [buen,dia],
-           [feliz,dia]
-      ]]).
+inicios([
+       hola,
+       saludos,
+       buenos,dias,
+       buenas,tardes,
+       noches,
+       buen,dia,
+       feliz,dia
+]).
 
-
-
-/*
- * Fin
- */
 
 %Fin de Conversacion
-input([[fin],[
-           [gracias],
-           [muchas,gracias],
-           [muchisimas,gracias],
-           [adios],
-           [nos,vemos],
-           [saludos],
-           [hasta,pronto],
-           [hasta,luego],
-           [hasta,mañana],
-           [hasta,la,proxima]
-       ]]).
+finales([
+    muchas,
+    muchisimas,gracias,
+    adios,
+    nos,vemos,
+    saludos,
+    hasta,pronto,
+    luego,
+    mañana
+]).
 
 
 
@@ -703,35 +710,45 @@ output([[referencia,applemusic],[
 
 
 
+/*****************************************************************************/
+%
+% Reglas
+%
+
+
 %Regla para saber si un elemento pertenece a una lista
 miembro(X,[X|_]). %X = Primero de la lista
 miembro(X,[_|R]) :- miembro(X,R). %R = Lista quitando el primero
 
 % Regla que simplifica la verificacion de pertenencia de algun
-% determinante con la base de datos de estos.
+% determinante con la base de datos correspondiente.
 miembroDet(X) :- determinantes(D), miembro(X,D).
 
 % Regla que simplifica la verificacion de pertenencia de algun
-% sujeto con la base de datos de estos
+% sujeto con la base de datos correspondiente.
 miembroSuj(X) :- sujetos(S), miembro(X,S).
 
 % Regla que simplifica la verificacion de pertenencia de algun
-% verbo con la base de datos de estos.
+% verbo con la base de datos correspondiente.
 miembroVer(X) :- verbos(V), miembro(X,V).
 
+% Regla que simplifica la verificacion de pertenencia de algun
+% adjetivo con la base de datos correspondiente.
+miembroAdj(X) :- adjetivos(A), miembro(X,A).
 
-/*****************************************************************************/
-%
-% Main de CallCenterLog
-%
-%
+% Regla que simplifica la verificacion de pertenencia de alguna
+% afirmacion con la base de datos correspondiente.
+miembroAfi(X) :- afirmaciones(A), miembro(X,A).
 
+% Regla que simplifica la verificacion de pertenencia de alguna
+% negacion con la base de datos correspondiente.
+miembroNeg(X) :- negaciones(N), miembro(X,N).
 
-callCenterLog :- write("Usuario:       "),
-                 read(X),
-                 %repeat,
-                 %write("CallCenterLog: "),
-                 write(X).
+% Regla que simplifica la verificacion de pertenencia de algun
+% inicio con la base de datos correspondiente.
+miembroIni(X) :- inicios(I), miembro(X,I).
 
+% Regla que simplifica la verificacion de pertenencia de algun
+% fin con la base de datos correspondiente.
+miembroFin(X) :- finales(F), miembro(X,F).
 
-%:- callCenterLog.
