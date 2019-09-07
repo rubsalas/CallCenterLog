@@ -1,3 +1,4 @@
+%Consulta el archivo con las bases de datos
 :-consult(database).
 
 
@@ -126,7 +127,7 @@ my_char_type(X,alphanumeric) :- X >= 97, X =< 123, !.
 my_char_type(X,alphanumeric) :- X >= 48, X =< 57, !.
 my_char_type(X,whitespace) :- X =< 32, !.
 my_char_type(X,punctuation) :- X >= 33, X =< 47, !.
-my_char_type(X,punctuation) :- X >= 58, X =< 64, !.
+my_char_type(X,punctuation) :- X >= 59, X =< 64, !.
 my_char_type(X,punctuation) :- X >= 91, X =< 96, !.
 my_char_type(X,punctuation) :- X >= 123, X =< 126, !.
 my_char_type(_,special).
@@ -152,35 +153,146 @@ read_atomics(ListOfAtomics) :-
 	read_lc_string(String),
 	clean_string(String,Cleanstring),
 	extract_atomics(Cleanstring,ListOfAtomics).
-	
-	
-oracion(S0,S):- sintagma_nominal(S0,S1), sintagma_verbal(S1,S).
 
-sintagma_nominal(S0,S):- determinante(S0,S1),nombre(S1,S),write("P<< "),nl ,pth(S1). 
 
-sintagma_verbal(S0,S):- verbo(S0,S). 
-sintagma_verbal(S0,S):- verbo(S0,S1), sintagma_nominal(S1,S).
 
-determinante([el|S],S).
-determinante([la|S],S).
-%determinantes(
 
-nombre([hombre|S],S). 
-nombre([manzana|S],S).
-verbo([come|S],S).
+/*****************************************************************************/
+%
+% Verificacion de BNF's
+%
+
+
+% sintagma_nominal + sintagma_verbal
+oracion(S0,S):- sintagma_nominal(S0,S1), sintagma_verbal(S1,S),!.
+%
+% Crear aca otras oraciones con los saludos, despedidas y preguntas que
+% tienen otro formato diferente a las oraciones con sintagmas definidos.
+%
+
+
+
+% Sintagmas Nominales:
+%
+% Determinante + Sujeto
+sintagma_nominal(S0,S):- determinante(S0,S1),sujeto(S1,S),!.
+
+% Determinante
+sintagma_nominal(S0,S):- determinante(S0,S),!.
+%
+% Sujeto
+sintagma_nominal(S0,S):- sujeto(S0,S),!.
+%
+%
+
+
+
+% Sintagmas Verbales:
+
+% -------------SI INICIA CON DETERMINANTE---------------
+% Determinante(se) + Verbo + Sintagma Nominal
+sintagma_verbal(S0,S):- determinante(S0,S1), verbo(S1,S2), sintagma_nominal(S2,S),!.
+
+%Determinante(se) + Verbo + Adjetivo
+sintagma_verbal(S0,S):- determinante(S0,S1), verbo(S1,S2), adjetivo(S2,S),!.
+
+% Determinante(se) + Verbo
+sintagma_verbal(S0,S):- determinante(S0,S1), verbo(S1,S),!.
+
+
+% -------------SI INICIA CON NEGACION---------------
+
+% Negacion + Determinante(se) + Verbo + Sintagma Nominal
+sintagma_verbal(S0,S):- negacion(S0,S1), determinante(S1,S2), verbo(S2,S3), sintagma_nominal(S3,S),!.
+
+% Negacion + Determinante(se) + Verbo
+sintagma_verbal(S0,S):- negacion(S0,S1), determinante(S1,S2), verbo(S2,S),!.
+
+% Negacion + Verbo + Sintagma Nominal
+sintagma_verbal(S0,S):- negacion(S0,S1), verbo(S1,S2), sintagma_nominal(S2,S),!.
+
+% Negacion + Verbo
+sintagma_verbal(S0,S):- negacion(S0,S1), verbo(S1,S),!.
+
+% -------------SI INICIA CON VERBO--------------
+% Verbo + Sintagma Nominal + Adjetivo
+sintagma_verbal(S0,S):- verbo(S0,S1), sintagma_nominal(S1,S2), adjetivo(S2,S),!.
+
+% Verbo + Sintagma Nominal
+sintagma_verbal(S0,S):- verbo(S0,S1), sintagma_nominal(S1,S),!.
+
+% Verbo + Adjetivo
+sintagma_verbal(S0,S):- verbo(S0,S1), adjetivo(S1,S),!.
+
+% Verbo
+sintagma_verbal(S0,S):- verbo(S0,S),!.
+
+% Se podrian definir aca los casos "alambrados" de saludos y despedidas
+% para la verificacion
+%
+
+
+
+/*****************************************************************************/
+% Verificaciones de pertenencia en base de datos (archivo database.pl)
+
+% Busca la pertenencia del determinante obtenido, en la base de datos
+determinante([X|S],S) :- miembroDet(X).
+
+% Busca la pertenencia del sujeto obtenido, en la base de datos
+sujeto([X|S],S) :- miembroSuj(X).
+
+% Busca la pertenencia del verbo obtenido, en la base de datos
+verbo([X|S],S) :- miembroVer(X).
+
+% Busca la pertenencia del adjetivo obtenido, en la base de datos
+adjetivo([X|S],S) :- miembroAdj(X).
+
+% Busca la pertenencia de la afirmacion obtenido, en la base de datos
+afirmacion([X|S],S) :- miembroAfi(X).
+
+% Busca la pertenencia de la negacion obtenido, en la base de datos
+negacion([X|S],S) :- miembroNeg(X).
+
+% Busca la pertenencia del inicio obtenido, en la base de datos
+inicio([X|S],S) :- miembroIni(X).
+
+% Busca la pertenencia del fin obtenido, en la base de datos
+fin([X|S],S) :- miembroFin(X).
+
 
 pth([]):- nl.
 pth([H|T]):- write(H), tab(1), pth(T).
 
+% -------------------------- List functions--------------------------
+split(L,P,R):-split(L,P,[],R).
+split([],_,[],[]).
+split([],_,S,[S]) :- S \= [].
+split([P|T],P,[],R) :- split(T,P,[],R).
+split([P|T],P,L,[L|R]) :- L \= [], split(T,P,[],R).
+split([H|T],P,S,R) :- H \= P, append(S, [H], S2), split(T,P,S2,R).
+
+
+/*****************************************************************************/
+
+tipoInput(Input):-oracion(Input,[]),!.
+
+tipoInput(Input):-miembro(:,Input),
+	split(Input,:,MultipleList),
+	oracionMultiple(MultipleList),!.
+
+
+oracionMultiple([]):-!.
+oracionMultiple([X|MultipleList]):-pth(X),oracion(X,[]),oracionMultiple(MultipleList).
 /*****************************************************************************/
 %
 % Main de CallCenterLog
 %
 callCenterLog :- write(">> "),
-                 read_atomics(Input),oracion(Input,[]),nl,pth(Input).
-                 %repeat,
-                 %write("CallCenterLog: "),
-                 
+		 read_atomics(Input),nl,pth(Input),
+		 tipoInput(Input).
+% Inicio
+%:- callCenterLog.
 
-:- callCenterLog.
+%Mi Macbook se reinicia sola: Mi Macbook no funciona.
 
