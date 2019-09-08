@@ -341,4 +341,3 @@ callCenterLog :- write(">> "),
 %:- callCenterLog.
 
 %Mi Macbook se reinicia sola: Mi Macbook no funciona.
-

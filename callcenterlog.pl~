@@ -1,3 +1,4 @@
+%Consulta el archivo con las bases de datos
 :-consult(database).
 
 
@@ -126,7 +127,7 @@ my_char_type(X,alphanumeric) :- X >= 97, X =< 123, !.
 my_char_type(X,alphanumeric) :- X >= 48, X =< 57, !.
 my_char_type(X,whitespace) :- X =< 32, !.
 my_char_type(X,punctuation) :- X >= 33, X =< 47, !.
-my_char_type(X,punctuation) :- X >= 58, X =< 64, !.
+my_char_type(X,punctuation) :- X >= 59, X =< 64, !.
 my_char_type(X,punctuation) :- X >= 91, X =< 96, !.
 my_char_type(X,punctuation) :- X >= 123, X =< 126, !.
 my_char_type(_,special).
@@ -156,65 +157,84 @@ read_atomics(ListOfAtomics) :-
 
 
 
-%Verificacion de BNF
+/*****************************************************************************/
+%
+% Verificacion de BNF's
+%
+
 
 % sintagma_nominal + sintagma_verbal
-oracion(S0,S):- sintagma_nominal(S0,S1), sintagma_verbal(S1,S).
+oracion(S0,S):- sintagma_nominal(S0,S1), sintagma_verbal(S1,S),!.
+%
+% Crear aca otras oraciones con los saludos, despedidas y preguntas que
+% tienen otro formato diferente a las oraciones con sintagmas definidos.
+%
+
 
 
 % Sintagmas Nominales:
 %
-% Determinante
-sintagma_nominal(S0,S):- determinante(S0,S).
-% Sujeto
-sintagma_nominal(S0,S):- sujeto(S0,S).
 % Determinante + Sujeto
-sintagma_nominal(S0,S):- determinante(S0,S1),sujeto(S1,S).
+sintagma_nominal(S0,S):- determinante(S0,S1),sujeto(S1,S),!.
+
+% Determinante
+sintagma_nominal(S0,S):- determinante(S0,S),!.
+%
+% Sujeto
+sintagma_nominal(S0,S):- sujeto(S0,S),!.
+%
+%
+
 
 
 % Sintagmas Verbales:
-%
-% Verbo
-sintagma_verbal(S0,S):- verbo(S0,S).
-%
-% Verbo + Sintagma Nominal
-sintagma_verbal(S0,S):- verbo(S0,S1), sintagma_nominal(S1,S).
-%
-% Verbo + Adjetivo
-sintagma_verbal(S0,S):- verbo(S0,S1), adjetivo(S1,S).
-%
-% Verbo + Sintagma Nominal + Adjetivo
-sintagma_verbal(S0,S):- verbo(S0,S1), sintagma_nominal(S1,S2), adjetivo(S2,S).
-%
-% Negacion + Verbo
-sintagma_verbal(S0,S):- negacion(S0,S1), verbo(S1,S).
-%
-% Negacion + Verbo + Sintagma Nominal
-sintagma_verbal(S0,S):- negacion(S0,S1), verbo(S1,S2), sintagma_nominal(S2,S).
-%
-% Determinante(se) + Verbo
-sintagma_verbal(S0,S):- determinante(S0,S1), verbo(S1,S).
-%
-% Determinante(se) + Verbo + Sintagma Nominal
-sintagma_verbal(S0,S):- determinante(S0,S1), verbo(S1,S2), sintagma_nominal(S2,S).
-%
-% Determinante(se) + Verbo + Adjetivo
-sintagma_verbal(S0,S):- determinante(S0,S1), verbo(S1,S2), adjetivo(S2,S).
-%
-% Negacion + Determinante(se) + Verbo
-sintagma_verbal(S0,S):- negacion(S0,S1), determinante(S1,S2), verbo(S2,S).
-%
-% Negacion + Determinante(se) + Verbo + Sintagma Nominal
-sintagma_verbal(S0,S):- negacion(S0,S1), determinante(S1,S2), verbo(S2,S3), sintagma_nominal(S3,S).
-%
 
+% -------------SI INICIA CON DETERMINANTE---------------
+% Determinante(se) + Verbo + Sintagma Nominal
+sintagma_verbal(S0,S):- determinante(S0,S1), verbo(S1,S2), sintagma_nominal(S2,S),!.
+
+%Determinante(se) + Verbo + Adjetivo
+sintagma_verbal(S0,S):- determinante(S0,S1), verbo(S1,S2), adjetivo(S2,S),!.
+
+% Determinante(se) + Verbo
+sintagma_verbal(S0,S):- determinante(S0,S1), verbo(S1,S),!.
+
+
+% -------------SI INICIA CON NEGACION---------------
+
+% Negacion + Determinante(se) + Verbo + Sintagma Nominal
+sintagma_verbal(S0,S):- negacion(S0,S1), determinante(S1,S2), verbo(S2,S3), sintagma_nominal(S3,S),!.
+
+% Negacion + Determinante(se) + Verbo
+sintagma_verbal(S0,S):- negacion(S0,S1), determinante(S1,S2), verbo(S2,S),!.
+
+% Negacion + Verbo + Sintagma Nominal
+sintagma_verbal(S0,S):- negacion(S0,S1), verbo(S1,S2), sintagma_nominal(S2,S),!.
+
+% Negacion + Verbo
+sintagma_verbal(S0,S):- negacion(S0,S1), verbo(S1,S),!.
+
+% -------------SI INICIA CON VERBO--------------
+% Verbo + Sintagma Nominal + Adjetivo
+sintagma_verbal(S0,S):- verbo(S0,S1), sintagma_nominal(S1,S2), adjetivo(S2,S),!.
+
+% Verbo + Sintagma Nominal
+sintagma_verbal(S0,S):- verbo(S0,S1), sintagma_nominal(S1,S),!.
+
+% Verbo + Adjetivo
+sintagma_verbal(S0,S):- verbo(S0,S1), adjetivo(S1,S),!.
+
+% Verbo
+sintagma_verbal(S0,S):- verbo(S0,S),!.
+
+% Se podrian definir aca los casos "alambrados" de saludos y despedidas
+% para la verificacion
+%
 
 
 
 /*****************************************************************************/
-%
-%Verificaciones de pertenencia en base de datos (archivo database.pl)
-%
+% Verificaciones de pertenencia en base de datos (archivo database.pl)
 
 % Busca la pertenencia del determinante obtenido, en la base de datos
 determinante([X|S],S) :- miembroDet(X).
@@ -244,16 +264,81 @@ fin([X|S],S) :- miembroFin(X).
 pth([]):- nl.
 pth([H|T]):- write(H), tab(1), pth(T).
 
+% -------------------------- List functions--------------------------
+split(L,P,R):-split(L,P,[],R).
+split([],_,[],[]).
+split([],_,S,[S]) :- S \= [].
+split([P|T],P,[],R) :- split(T,P,[],R).
+split([P|T],P,L,[L|R]) :- L \= [], split(T,P,[],R).
+split([H|T],P,S,R) :- H \= P, append(S, [H], S2), split(T,P,S2,R).
+
+
+% add_tail(+List,+Element,-List)
+% Add the given element to the end of the list, without using the "append" predicate.
+add_tail([],X,[X]).
+add_tail([H|T],X,[H|L]):-add_tail(T,X,L).
+
+/*****************************************************************************/
+
+%patrones de problema
+identificaProblema(Producto,_,_):-
+	problema([X|R]),X==Producto,pth(R).
+
+%identificaProblemaAux2([X|R],
+
+%identificaProblemaAux([],_,fail):-!.
+%identificaProblemaAux([X|R],Input,Problema):-identificaProblemaAux2(X,Input,Problema),identificaProblemaAux(R,Input,Problema).
+%
+%
+
+
+%problemaMac([X|Patrones],Input,Problema):-
+%	subset(X,Input),!.
+
+%
+
+%Identifica si hay mas de una oracion de entrada y la valida.
+
+
+identificaSolicitud([],_,_):-!,fail.
+identificaSolicitud([X|_],Z,B):-miembro(X,Z),B = X,!.
+identificaSolicitud([_|R],Z,B):-identificaSolicitud(R,Z,B),!.
+
+oracionMultiple([]):-!.
+oracionMultiple([X|MultipleList]):-pth(X),oracion(X,[]),oracionMultiple(MultipleList).
+
+tipoInput(Input):-oracion(Input,[]),
+	(
+	%El caso de si esta pidiendo por referncia
+	referencia(D),identificaSolicitud(D,Input,_);
+
+	%El caso de si es una causa
+
+
+	%El caso de si es un problema
+	producto(L),identificaSolicitud(L,Input,P),
+	add_tail([],problema,List),
+	add_tail(List,P,List2),
+	pth(List2),
+	identificaProblema(List2,Input,_)
+	).
+
+tipoInput(Input):-miembro(:,Input),
+	(
+	split(Input,:,MultipleList),oracionMultiple(MultipleList)
+	).
+
+
 
 /*****************************************************************************/
 %
 % Main de CallCenterLog
 %
 callCenterLog :- write(">> "),
-		 read_atomics(Input),oracion(Input,[]),nl,pth(Input).
-
+		 read_atomics(Input),nl,pth(Input),
+		 tipoInput(Input).
 % Inicio
-:- callCenterLog.
+%:- callCenterLog.
 
-
+%Mi Macbook se reinicia sola: Mi Macbook no funciona.
 
