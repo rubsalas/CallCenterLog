@@ -261,7 +261,7 @@ inicio([X|S],S) :- miembroIni(X).
 fin([X|S],S) :- miembroFin(X).
 
 
-pth([]):- nl.
+pth([]):- !.
 pth([H|T]):- write(H), tab(1), pth(T).
 
 % -------------------------- List functions--------------------------
@@ -277,6 +277,11 @@ split([H|T],P,S,R) :- H \= P, append(S, [H], S2), split(T,P,S2,R).
 % Add the given element to the end of the list, without using the "append" predicate.
 add_tail([],X,[X]).
 add_tail([H|T],X,[H|L]):-add_tail(T,X,L).
+
+%last([Elem], Elem).
+%last([_|Tail], Elem) :-
+%	last(Tail, Elem).
+
 
 /*****************************************************************************/
 
@@ -295,7 +300,18 @@ identificaProblemaAux([X|_],Input,Problema):-identificaProblemaAux2(X,Input,Prob
 identificaProblemaAux([_|R],Input,Problema):-identificaProblemaAux(R,Input,Problema).
 %x
 
+%Regla para inferir la causa
+%infiereCausaAux(Problemas,Problema,Causa)
 
+infiereCausaAux2([Problema|[R|_]],Problema,Causa):-Causa=R.
+infiereCausaAux2([],_,fail):-fail,!.
+
+infiereCausaAux([],_,fail):-!,fail.
+infiereCausaAux([X|_],Problema,Causa):-infiereCausaAux2(X,Problema,Causa),!.
+infiereCausaAux([_|R],Problema,Causa):-infiereCausaAux(R,Problema,Causa).
+
+infiereCausa(Tipo,Problema,Causa):-
+	output([X|[R|_]]),X==Tipo,infiereCausaAux(R,Problema,Causa).
 
 %problemaMac([X|Patrones],Input,Problema):-
 %	subset(X,Input),!.
@@ -312,38 +328,89 @@ identificaSolicitud([_|R],Z,B):-identificaSolicitud(R,Z,B),!.
 oracionMultiple([]):-!.
 oracionMultiple([X|MultipleList]):-pth(X),oracion(X,[]),oracionMultiple(MultipleList).
 
-tipoInput(Input):-oracion(Input,[]),
+tipoInput(Input,Tipo,Solicitud):-oracion(Input,[]),
 	(
 	%El caso de si esta pidiendo por referncia
 	referencia(D),identificaSolicitud(D,Input,_);
 
 	%El caso de si es una causa
 
-
 	%El caso de si es un problema
+	%Determina el producto del que se necesita soporte
 	producto(L),identificaSolicitud(L,Input,P),
+
+	%genera dos listas:
+	  %Lista [problema, producto]
 	add_tail([],problema,List),
 	add_tail(List,P,List2),
-	pth(List2),
+
+	  %Lista [causa, producto]
+	add_tail([],causa,ListC),
+	add_tail(ListC,P,List2C),
+
 	identificaProblema(List2,Input,Problema)
-	,pth(Problema)
+	,Tipo=List2C,Solicitud=Problema
 	).
-tipoInput(Input):-miembro(:,Input),
+tipoInput(Input,_,_):-miembro(:,Input),
 	(
 	split(Input,:,MultipleList),oracionMultiple(MultipleList)
 	).
 
+%determinaCausa(Causas,Causa)
+determinaCausa([],fail):-!,fail.
+determinaCausa([X|R],Causa):-
+	nl,pth(X),write("?"),nl,read_atomics(Input),(
+				   member(si,Input),Causa=X,!;
+
+				   member(no,Input),determinaCausa(R,Causa)
+			       ),!.
+%Regla que da soluciones
+darSolucionAux2([Causa|[R|_]],Causa,Soluciones):-Soluciones=R.
+darSolucionAux2([],_,fail):-fail,!.
+
+darSolucionAux([],_,fail):-!,fail.
+darSolucionAux([X|_],Causa,Soluciones):-darSolucionAux2(X,Causa,Soluciones).
+darSolucionAux([_|R],Causa,Soluciones):-darSolucionAux(R,Causa,Soluciones).
+
+darSolucion(Tipo,Causa,Soluciones):-
+	output([X|[R|_]]),X==Tipo,darSolucionAux(R,Causa,Soluciones).
 
 
+imprimitListas([]):-true,!.
+imprimirListas([X|R]):-nl,write("->"), pth(X),nl,imprimirListas(R).
 /*****************************************************************************/
 %
 % Main de CallCenterLog
 %
 callCenterLog :- write(">> "),
-		 read_atomics(Input),nl,pth(Input),
-		 tipoInput(Input).
+		 read_atomics(Input),nl,
+		 tipoInput(Input,Tipo,Solicitud),
+		 (
+		  last(Tipo,P),
+		  member(causa,Tipo),
+		  infiereCausa(Tipo,Solicitud,Causas),
+		     determinaCausa(Causas,Causa),
+                    %Lista [solucion, producto]
+	           add_tail([],solucion,List),
+		   add_tail(List,P,List2),
+		     darSolucion(List2,Causa,Soluciones),imprimirListas(Soluciones)
+		 ).
+
+mainC:-
+	write("Welcome to CallCenterLog. To activate me, greet me by my name"),nl,
+	repeat,
+	write(">> "),
+		 read_atomics(Input),nl,
+		 (
+		 miembro(callcenterlog,Input),
+		 write("Hola, en que puedo servile?"),nl,
+		 callCenterLog,fail;
+		 miembro(adios,Input),!
+		 ).
+
+
+
 % Inicio
-%:- callCenterLog.
 
 %Mi Macbook se reinicia sola: Mi Macbook no funciona.
 
