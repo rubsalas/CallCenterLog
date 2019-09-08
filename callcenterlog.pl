@@ -331,7 +331,28 @@ oracionMultiple([X|MultipleList]):-pth(X),oracion(X,[]),oracionMultiple(Multiple
 tipoInput(Input,Tipo,Solicitud):-oracion(Input,[]),
 	(
 	%El caso de si esta pidiendo por referncia
-	referencia(D),identificaSolicitud(D,Input,_);
+	referencia(D),identificaSolicitud(D,Input,_),
+
+	%Determina el producto del que se necesita soporte
+	producto(L),identificaSolicitud(L,Input,P),
+
+	%Lista [problema, producto]
+	add_tail([],problema,ListA),
+	add_tail(ListA,P,List2A),
+
+	add_tail([],referencia,ListD),
+	add_tail(ListD,P,List2D),
+
+
+	write("Indique cual seria el problema: "),nl,
+	read_atomics(Input2),nl,
+
+        identificaProblema(List2A,Input2,ProblemaR),
+	Tipo=List2D,Solicitud=ProblemaR,pth(ProblemaR)
+
+				     ;
+
+
 
 	%El caso de si es una causa
 
@@ -351,9 +372,12 @@ tipoInput(Input,Tipo,Solicitud):-oracion(Input,[]),
 	identificaProblema(List2,Input,Problema)
 	,Tipo=List2C,Solicitud=Problema
 	).
-tipoInput(Input,_,_):-miembro(:,Input),
+tipoInput(Input,_,_):-miembro(:,Input),miembro(referencias,Input),
 	(
 	split(Input,:,MultipleList),oracionMultiple(MultipleList)
+
+
+
 	).
 
 %determinaCausa(Causas,Causa)
@@ -376,6 +400,18 @@ darSolucion(Tipo,Causa,Soluciones):-
 	output([X|[R|_]]),X==Tipo,darSolucionAux(R,Causa,Soluciones).
 
 
+darReferenciaAux2([Causa|[R|_]],Causa,Soluciones):-Soluciones=R.
+darReferenciaAux2([],_,fail):-fail,!.
+
+darReferenciaAux([],_,fail):-!,fail.
+darReferenciaAux([X|_],Causa,Soluciones):-darReferenciaAux2(X,Causa,Soluciones).
+darReferenciaAux([_|R],Causa,Soluciones):-darReferenciaAux(R,Causa,Soluciones).
+
+darReferencia(Tipo,Causa,Soluciones):-
+	output([X|[R|_]]),X==Tipo,darReferenciaAux(R,Causa,Soluciones).
+
+
+
 imprimitListas([]):-true,!.
 imprimirListas([X|R]):-nl,write("->"), pth(X),nl,imprimirListas(R).
 /*****************************************************************************/
@@ -393,7 +429,13 @@ callCenterLog :- write(">> "),
                     %Lista [solucion, producto]
 	           add_tail([],solucion,List),
 		   add_tail(List,P,List2),
-		     darSolucion(List2,Causa,Soluciones),imprimirListas(Soluciones)
+		     darSolucion(List2,Causa,Soluciones),imprimirListas(Soluciones);
+		     member(referencia,Tipo),
+
+		     darReferencia(Tipo,Solicitud,Referencias),imprimirListas(Referencias);
+		     member(causas,Tipo),
+		     darSolucion(Tipo,Solicitud,Causas),imprimirListas(Causas)
+
 		 ).
 
 mainC:-

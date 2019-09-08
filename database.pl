@@ -116,7 +116,7 @@ determinantes([
                estas,esas,aquellas,
                esto,eso,aquello,
                %Indefinidos
-               algun,alguno,alguna,algunos,algunas,
+               para,algun,alguno,alguna,algunos,algunas,
                otro,otra,otros,otras,
                mucho,mucha,muchos,muchas,
                poco,poca,pocos,pocas,
@@ -150,7 +150,7 @@ sujetos([
     necesidades,notificaciones,
     opcion,
     pais,pantalla,pasos,paypal,plan,plug-in,presupuesto,problema,programas,proceso,puerto,puertos,
-    red,regalo,region,rendimiento,respaldo,respuesta,ritmo,
+    red,regalo,referencia,region,rendimiento,respaldo,respuesta,ritmo,
     servicio,servidor,sesion,sistema,software,soporte,suscripcion,suscripciones,
     tarjeta,tiempo,
     unidades,usb,
