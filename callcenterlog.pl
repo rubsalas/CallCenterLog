@@ -351,7 +351,23 @@ tipoInput(Input,Tipo,Solicitud):-oracion(Input,[]),
 	Tipo=List2D,Solicitud=ProblemaR,pth(ProblemaR)
 
 				     ;
+	miembro(causas,Input),
+	%Determina el producto del que se necesita soporte
+	producto(L),identificaSolicitud(L,Input,P),
 
+	%Lista [problema, producto]
+	add_tail([],problema,ListA),
+	add_tail(ListA,P,List2A),
+
+	add_tail([],causas,ListD),
+	add_tail(ListD,P,List2D),
+
+
+	write("Indique cual seria el problema: "),nl,
+	read_atomics(Input2),nl,
+
+        identificaProblema(List2A,Input2,ProblemaR),
+	Tipo=List2D,Solicitud=ProblemaR,pth(ProblemaR);
 
 
 	%El caso de si es una causa
@@ -428,13 +444,17 @@ callCenterLog :- write(">> "),
 		     determinaCausa(Causas,Causa),
                     %Lista [solucion, producto]
 	           add_tail([],solucion,List),
-		   add_tail(List,P,List2),
+		   add_tail(List,P,List2),nl,
+		     write("estas serian las soluciones: "),nl,
 		     darSolucion(List2,Causa,Soluciones),imprimirListas(Soluciones);
 		     member(referencia,Tipo),
+		     write("estas serian las referencias: "),nl,
 
 		     darReferencia(Tipo,Solicitud,Referencias),imprimirListas(Referencias);
+		     last(Tipo,P),
 		     member(causas,Tipo),
-		     darSolucion(Tipo,Solicitud,Causas),imprimirListas(Causas)
+		     write("estas serian las causas: "),nl,
+		     darSolucion([causa,P],Solicitud,Causas),imprimirListas(Causas)
 
 		 ).
 
@@ -455,3 +475,4 @@ mainC:-
 % Inicio
 
 %Mi Macbook se reinicia sola: Mi Macbook no funciona.
+

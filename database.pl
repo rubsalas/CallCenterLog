@@ -7,6 +7,7 @@
 /* Rubén Salas Ramírez - 2017164846                                          */
 /*                                                                           */
 /* Since: 28/08/19                                                           */
+/* Version: 1.0                                                              */
 /*                                                                           */
 /*****************************************************************************/
 
@@ -14,33 +15,20 @@
 /*****************************************************************************/
 % Formato de entradas:
 %
-%
-% -> listas
-%
-% input([input1,input2,...inputN]).
-%
-%
+%                                         |
+% -> inicio                               | -> pregunta
+% -> fin                                  | -> problema
+%                                         | -> referencia
+% entrada([[key],[                        |
+%              [frase,1],                 | entrada([[key,subkey],[
+%              [frase,2],                 |              [frase,1],
+%              ...                        |              [frase,2],
+%              [frase,N]                  |              ...
+%          ]]).                           |              [frase,N]
+%                                         |          ]]).
+%                                         |
+%                                         |
 % -------------------------------------------------------------------------
-%
-%
-% -> problema
-%
-% entrada([[key,subkey],[
-%            [[
-%              [problema,con,sinonimos,1,1],
-%              [problema,con,sinonimos,2,1],
-%              ...,
-%              [problema,con,sinonimos,N,1]
-%             ],
-%             [problema,especifico,1]
-%            ],
-%            [problema2],
-%            ...,
-%            [problemaN]
-%          ]]).
-%
-%
-% -----------------------------------------------------------------------
 %
 %
 % -> causa
@@ -150,8 +138,8 @@ determinantes([
 sujetos([
     actualizaciones,ahorro,almacenamiento,ajuste,ajustes,aplicacion,aplicaciones,apple,appleid,awatch,archivo,archivos,audifonos,avion,
     bateria,bluetooth,buscador,
-    cancion,canciones,cargador,codigo,componente,compras,comunidad,conexion,conexiones,copias,corazon,credito,cuenta,
-    datos,debito,desarrollador,disco,dispositivo,dispositivos,documentos,driver,drivers,duracion,
+    cancion,canciones,causas,causa,cargador,codigo,componente,compras,comunidad,conexion,conexiones,copias,corazon,credito,cuenta,
+    datos,debito,desarrollador,disco,dispositivo,driver,drivers,duracion,
     energia,espacio,
     firmware,folder,fondos,fotos,fuente,
     galeria,
@@ -170,26 +158,37 @@ sujetos([
     watchos,wifi
 ]).
 
+%Productos que se da soporte
+producto([macbook,
+          awatch,
+          appstore,
+          applemusic,
+          iphone
+          ]).
+
+%Referencia
+referencia([referencia, referencias, enlace, enlaces, website, websites, link, links, url, urls]).
+
 %Verbos
-%%Solo estan unavez, se encuentran todos los de los dispositivos
+%%Solo estan una vez, se encuentran todos los de los dispositivos
 verbos([
-    abrir,acceder,acepte,active,actualice,actualizada,actualizan,actualizar,agregar,agregue,anaden,apague,aparece,aparecen,aumentar,
-    baja,bajar,borre,busque,
+    abrir,acceder,acepte,active,actualice,actualizada,actualizan,actualizar,agregar,agregue,apague,aparece,aparecen,aumentar,
+    bajar,borre,busque,
     cambie,cambio,carga,cargan,cargando,causar,cierre,comprometa,conecta,conectar,conectarse,conectelo,conectese,
     configurar,considere,contacte,continua,correr,corriendo,cree,creese,cumpla,
-    debido,desaparecen,desaparecieron,descarga,descargan,descargar,descargue,desconecte,desconectese,deshabilite,duda,
-    elimine,encender,enciende,encontraba,encuentra,encuentran,encuentre,encuentro,es,escuchan,
-    escucha,escuchar,espere,esta,estaba,estan,este,existe,extraviaron,
+    debido,desaparecieron,descarga,descargar,descargue,desconecte,desconectese,deshabilite,
+    elimine,encender,enciende,encontraba,encuentra,encuentran,encuentre,encuentro,es,
+    escucha,escuchar,espere,esta,estaba,estan,este,extraviaron,
     facilitar,funciona,funcionando,funcionar,
     golpeo,guardado,guardan,guardar,guarde,
     hacer,hay,
-    identifica,incremente,indicarme,indiqueme,ingresar,inicia,inician,iniciar,inicie,instale,intente,investigar,
+    incremente,indicarme,indiqueme,ingresar,inicia,iniciar,inicie,instale,intente,investigar,
     limite,limpie,lleve,llevelo,logro,
     maximizar,monitoreo,
     necesite,
-    pagar,parece,paro,pasar,pasarme,pierden,podria,ponerse,prenda,preparacion,probarlo,produce,pruebe,pudo,puedan,puede,pueden,puedo,
+    pagar,parece,paro,pasar,pasarme,podria,ponerse,prenda,preparacion,probarlo,produce,pruebe,pudo,puedan,puede,pueden,puedo,
     quiere,
-    recibe,reciben,recibir,reconecte,reconoce,reconocen,redima,reinicia,reiniciado,reinicia,reinicie,reinicio,
+    reciben,recibir,reconecte,reconocen,redima,reinicia,reiniciado,reinicia,reinicie,reinicio,
     reinstale,rendir,reparacion,reproducen,reproducidas,reproducir,responde,responder,respondiendo,retornelo,revisar,revise,rinde,
     salir,se,sea,seran,son,soportar,suenan,
     tendra,tenga,tengo,teniendo,tiene,
@@ -200,12 +199,7 @@ verbos([
 
 %Adjetivos
 adjetivos([
-    automaticamente,
-    externas,
-    inconsistente,
-    lenta,lentamente,lento,
-    rapida,rapidamente,rapido,
-    sola,solo
+    inconsistente,lenta,lentamente,lento,rapida,rapidamente,rapido,sola
 ]).
 
 
@@ -246,31 +240,35 @@ finales([
     mañana
 ]).
 
-%Interrogativos
-interrogativos([
-           que,
-           cual,
-           por,que,
-           con,
-           para,
-           donde,
-           como,
-           cuanto,
-           cuanta
-        ]).
 
 
-%Referencia
-referencia([referencia, referencias, enlace, enlaces, website, websites, link, links, url, urls]).
+/*
+ * Preguntas
+ */
 
+%Preguntas: Interrogativos
+input([[pregunta,interrogativo],[
+           [que],
+           [cual],
+           [por,que],
+           [con,que],
+           [para,que],
+           [donde],
+           [como],
+           [cuanto],
+           [cuanta]
+        ]]).
 
-%Productos que se da soporte
-producto([macbook,
-          awatch,
-          appstore,
-          applemusic,
-          iphone
-          ]).
+%Preguntas: Productos
+input([[pregunta,producto],[
+           [macbook],
+           [iphone],
+           [apple,watch],
+           [app,store],
+           [apple,music],
+           [apple,cloud]
+        ]]).
+
 
 
 /*
@@ -280,8 +278,7 @@ producto([macbook,
 %Problemas: Macbook
 problema([[problema,macbook],[
               [
-               [
-                [no, identifica, unidades, externas],
+               [[no, identifica, unidades, externas],
                 [no, reconoce, unidades, externas],
                 [no, identifica, dispositivos, externos],
                 [no, reconoce, dispositivos, externos]
@@ -289,123 +286,50 @@ problema([[problema,macbook],[
                [no, reconoce, unidades, externas]
               ],
               [
-               [
-                [se, reinicia, sola],
+               [[se, reinicia, sola],
                 [se, reinicia, automaticamente]
                ],
                [se,reinicia,sola]
               ],
               [
-               [
-                [se, desaparecen, documentos],
+               [[se, desaparecen, documentos],
                 [se, pierden, documentos],
                 [se, desaparecen, archivos],
                 [se, pierden, archivos]
                ],
                [se,desaparecen,archivos]
               ]
-          ]]).
+       ]]).
 
 
 %Problemas: iPhone
 problema([[problema,iphone],[
-           [
-            [
-             [responde,lento],
-             [no,responde,rapido]
-            ],
-            [responde,lentamente]
-           ],
-           [
-            [
-             [no,recibe,carga],
-             [no,llena,la,bateria]
-            ],
-            [no,carga]
-           ],
-           [
-            [
-             [no,enciende],
-             [no,reacciona]
-            ],
-            [no,responde]
-           ]
+           [responde,lentamente],
+           [no,carga],
+           [no,responde]
        ]]).
 
 %Problemas: Apple Watch
 problema([[problema,applewatch],[
-           [
-            [
-             [posee,bluetooth,inconsistente],
-             [el,bluetooth,es,inconsistente]
-            ],
-            [tiene,bluetooth,inconsistente]
-           ],
-           [
-            [
-             [responde,lento],
-             [no,responde,rapido]
-            ],
-            [responde,lentamente]
-           ],
-           [
-            [
-             [se,descarga,rapido],
-             [se,apaga,rapidamente]],
-            [se,descarga,rapidamente]
-           ]
+           [tiene,bluetooth,inconsistente],
+           [responde,lentamente],
+           [se,descarga,rapidamente]
        ]]).
 
 %Problemas: App Store
 problema([[problema,appstore],[
-           [
-            [
-             [no,se,bajan,aplicaciones],
-             [no,inician,las,descargas]
-            ],
-            [no,se,descargan,aplicaciones]
-           ],
-           [
-            [
-             [no,conecta],
-             [no,hay,conexion],
-             [no,existe,una,coneccion]
-            ],
-            [no,se,conecta]
-           ],
-           [
-            [
-             [no,se,descargan,actualizaciones],
-             [no,se,actualizan]
-            ],
-            [no,se,actualizan,aplicaciones]
-           ]
+           [no,se,descargan,aplicaciones],
+           [no,se,conecta],
+           [no,se,actualizan,aplicaciones]
        ]]).
 
 %Problemas: Apple Music
 problema([[problema,applemusic],[
-           [
-            [
-             [no,sirve,la,aplicacion],
-             [no,funciona,el,programa]
-            ],
-            [no,funciona,la,aplicacion]
-           ],
-           [
-            [
-             [no,se,escuchan,las,canciones],
-             [no,inician,las,canciones]
-            ],
-            [no,se,reproducen,canciones]
-           ],
-           [
-            [
-             [no,se,descargan,canciones],
-             [no,se,anaden,canciones]
-            ],
-            [no,se,guardan,canciones]
-           ]
+           [no,funciona,la,aplicacion],
+           [no,se,reproducen,canciones],
+           [no,se,guardan,canciones]
        ]]).
+
 
 
 /*
