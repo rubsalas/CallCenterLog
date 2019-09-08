@@ -281,15 +281,20 @@ add_tail([H|T],X,[H|L]):-add_tail(T,X,L).
 /*****************************************************************************/
 
 %patrones de problema
-identificaProblema(Producto,_,_):-
-	problema([X|R]),X==Producto,pth(R).
+identificaProblema(Producto,Input,Problema):-
+	problema([X|[R|_]]),X==Producto,identificaProblemaAux(R,Input,Problema),!.
 
-%identificaProblemaAux2([X|R],
+descartaSinonimo([],_):-!,fail.
+descartaSinonimo([X|_],Input):-subset(X,Input),!.
+descartaSinonimo([_|R],Input):-descartaSinonimo(R,Input).
 
-%identificaProblemaAux([],_,fail):-!.
-%identificaProblemaAux([X|R],Input,Problema):-identificaProblemaAux2(X,Input,Problema),identificaProblemaAux(R,Input,Problema).
-%
-%
+identificaProblemaAux2([X|[R|_]],Input,Problema):-descartaSinonimo(X,Input),Problema=R,!.
+
+identificaProblemaAux([],_,fail):-!.
+identificaProblemaAux([X|_],Input,Problema):-identificaProblemaAux2(X,Input,Problema),!.
+identificaProblemaAux([_|R],Input,Problema):-identificaProblemaAux(R,Input,Problema).
+%x
+
 
 
 %problemaMac([X|Patrones],Input,Problema):-
@@ -320,9 +325,9 @@ tipoInput(Input):-oracion(Input,[]),
 	add_tail([],problema,List),
 	add_tail(List,P,List2),
 	pth(List2),
-	identificaProblema(List2,Input,_)
+	identificaProblema(List2,Input,Problema)
+	,pth(Problema)
 	).
-
 tipoInput(Input):-miembro(:,Input),
 	(
 	split(Input,:,MultipleList),oracionMultiple(MultipleList)
