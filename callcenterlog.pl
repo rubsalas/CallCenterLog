@@ -273,17 +273,63 @@ split([P|T],P,L,[L|R]) :- L \= [], split(T,P,[],R).
 split([H|T],P,S,R) :- H \= P, append(S, [H], S2), split(T,P,S2,R).
 
 
+% add_tail(+List,+Element,-List)
+% Add the given element to the end of the list, without using the "append" predicate.
+add_tail([],X,[X]).
+add_tail([H|T],X,[H|L]):-add_tail(T,X,L).
+
 /*****************************************************************************/
 
-tipoInput(Input):-oracion(Input,[]),!.
+%patrones de problema
+identificaProblema(Producto,_,_):-
+	problema([X|R]),X==Producto,pth(R).
 
-tipoInput(Input):-miembro(:,Input),
-	split(Input,:,MultipleList),
-	oracionMultiple(MultipleList),!.
+%identificaProblemaAux2([X|R],
 
+%identificaProblemaAux([],_,fail):-!.
+%identificaProblemaAux([X|R],Input,Problema):-identificaProblemaAux2(X,Input,Problema),identificaProblemaAux(R,Input,Problema).
+%
+%
+
+
+%problemaMac([X|Patrones],Input,Problema):-
+%	subset(X,Input),!.
+
+%
+
+%Identifica si hay mas de una oracion de entrada y la valida.
+
+
+identificaSolicitud([],_,_):-!,fail.
+identificaSolicitud([X|_],Z,B):-miembro(X,Z),B = X,!.
+identificaSolicitud([_|R],Z,B):-identificaSolicitud(R,Z,B),!.
 
 oracionMultiple([]):-!.
 oracionMultiple([X|MultipleList]):-pth(X),oracion(X,[]),oracionMultiple(MultipleList).
+
+tipoInput(Input):-oracion(Input,[]),
+	(
+	%El caso de si esta pidiendo por referncia
+	referencia(D),identificaSolicitud(D,Input,_);
+
+	%El caso de si es una causa
+
+
+	%El caso de si es un problema
+	producto(L),identificaSolicitud(L,Input,P),
+	add_tail([],problema,List),
+	add_tail(List,P,List2),
+	pth(List2),
+	identificaProblema(List2,Input,_)
+	).
+
+tipoInput(Input):-miembro(:,Input),
+	(
+	split(Input,:,MultipleList),oracionMultiple(MultipleList)
+	).
+
+
+
 /*****************************************************************************/
 %
 % Main de CallCenterLog

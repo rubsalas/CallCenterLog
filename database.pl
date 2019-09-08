@@ -158,7 +158,16 @@ sujetos([
     watchos,wifi
 ]).
 
+%Productos que se da soporte
+producto([macbook,
+          awatch,
+          appstore,
+          applemusic,
+          iphone
+          ]).
 
+%Referencia
+referencia([referencia, referencias, enlace, enlaces, website, websites, link, links, url, urls]).
 
 %Verbos
 %%Solo estan una vez, se encuentran todos los de los dispositivos
@@ -267,35 +276,55 @@ input([[pregunta,producto],[
  */
 
 %Problemas: Macbook
-input([[problema,macbook],[
-           [no,reconoce,unidades,externas],
-           [se,reinicia,sola],
-           [se,desaparecen,archivos]
+problema([[problema,macbook],[
+              [
+               [[no, identifica, unidades, externas],
+                [no, reconoce, unidades, externas],
+                [no, identifica, dispositivos, externos],
+                [no, reconoce, dispositivos, externos]
+               ],
+               [no, reconoce, unidades, externas]
+              ],
+              [
+               [[se, reinicia, sola],
+                [se, reinicia, automaticamente]
+               ],
+               [se,reinicia,sola]
+              ],
+              [
+               [[se, desaparecen, documentos],
+                [se, pierden, documentos],
+                [se, desaparecen, archivos],
+                [se, pierden, archivos]
+               ],
+               [se,desaparecen,archivos]
+              ]
        ]]).
 
+
 %Problemas: iPhone
-input([[problema,iphone],[
+problema([[problema,iphone],[
            [responde,lentamente],
            [no,carga],
            [no,responde]
        ]]).
 
 %Problemas: Apple Watch
-input([[problema,applewatch],[
+problema([[problema,applewatch],[
            [tiene,bluetooth,inconsistente],
            [responde,lentamente],
            [se,descarga,rapidamente]
        ]]).
 
 %Problemas: App Store
-input([[problema,appstore],[
+problema([[problema,appstore],[
            [no,se,descargan,aplicaciones],
            [no,se,conecta],
            [no,se,actualizan,aplicaciones]
        ]]).
 
 %Problemas: Apple Music
-input([[problema,applemusic],[
+problema([[problema,applemusic],[
            [no,funciona,la,aplicacion],
            [no,se,reproducen,canciones],
            [no,se,guardan,canciones]
