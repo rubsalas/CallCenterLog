@@ -136,17 +136,17 @@ determinantes([
 %Sujetos Unicos
 %Solo estan una vez, se encuentran todos los de los dispositivos
 sujetos([
-    actualizaciones,ahorro,almacenamiento,ajuste,ajustes,aplicacion,aplicaciones,apple,appleID,archivo,archivos,audifonos,avion,
+    actualizaciones,ahorro,almacenamiento,ajuste,ajustes,aplicacion,aplicaciones,apple,appleid,awatch,archivo,archivos,audifonos,avion,
     bateria,bluetooth,buscador,
     cancion,canciones,cargador,codigo,componente,compras,comunidad,conexion,conexiones,copias,corazon,credito,cuenta,
     datos,debito,desarrollador,disco,dispositivo,driver,drivers,duracion,
     energia,espacio,
     firmware,folder,fondos,fotos,fuente,
     galeria,
-    iCloud,internet,iOS,iPhone,
+    icloud,internet,ios,iphone,
     juegos,
     library,
-    maquina,memoria,minutos,modo,monitoreo,moviles,music,musica,
+    macbook,maquina,memoria,minutos,modo,monitoreo,moviles,music,musica,
     necesidades,notificaciones,
     opcion,
     pais,pantalla,pasos,paypal,plan,plug-in,presupuesto,problema,programas,proceso,puerto,puertos,
@@ -155,10 +155,19 @@ sujetos([
     tarjeta,tiempo,
     unidades,usb,
     version,versiones,vida,videos,volumen,
-    watchOS,wifi
+    watchos,wifi
 ]).
 
+%Productos que se da soporte
+producto([macbook,
+          awatch,
+          appstore,
+          applemusic,
+          iphone
+          ]).
 
+%Referencia
+referencia([referencia, referencias, enlace, enlaces, website, websites, link, links, url, urls]).
 
 %Verbos
 %%Solo estan una vez, se encuentran todos los de los dispositivos
@@ -267,35 +276,55 @@ input([[pregunta,producto],[
  */
 
 %Problemas: Macbook
-input([[problema,macbook],[
-           [no,reconoce,unidades,externas],
-           [se,reinicia,sola],
-           [se,desaparecen,archivos]
+problema([[problema,macbook],[
+              [
+               [[no, identifica, unidades, externas],
+                [no, reconoce, unidades, externas],
+                [no, identifica, dispositivos, externos],
+                [no, reconoce, dispositivos, externos]
+               ],
+               [no, reconoce, unidades, externas]
+              ],
+              [
+               [[se, reinicia, sola],
+                [se, reinicia, automaticamente]
+               ],
+               [se,reinicia,sola]
+              ],
+              [
+               [[se, desaparecen, documentos],
+                [se, pierden, documentos],
+                [se, desaparecen, archivos],
+                [se, pierden, archivos]
+               ],
+               [se,desaparecen,archivos]
+              ]
        ]]).
 
+
 %Problemas: iPhone
-input([[problema,iphone],[
+problema([[problema,iphone],[
            [responde,lentamente],
            [no,carga],
            [no,responde]
        ]]).
 
 %Problemas: Apple Watch
-input([[problema,applewatch],[
+problema([[problema,applewatch],[
            [tiene,bluetooth,inconsistente],
            [responde,lentamente],
            [se,descarga,rapidamente]
        ]]).
 
 %Problemas: App Store
-input([[problema,appstore],[
+problema([[problema,appstore],[
            [no,se,descargan,aplicaciones],
            [no,se,conecta],
            [no,se,actualizan,aplicaciones]
        ]]).
 
 %Problemas: Apple Music
-input([[problema,applemusic],[
+problema([[problema,applemusic],[
            [no,funciona,la,aplicacion],
            [no,se,reproducen,canciones],
            [no,se,guardan,canciones]
@@ -717,7 +746,7 @@ output([[referencia,applemusic],[
 
 
 %Regla para saber si un elemento pertenece a una lista
-miembro(X,[X|_]). %X = Primero de la lista
+miembro(X,[X|_]):-!. %X = Primero de la lista
 miembro(X,[_|R]) :- miembro(X,R). %R = Lista quitando el primero
 
 % Regla que simplifica la verificacion de pertenencia de algun
