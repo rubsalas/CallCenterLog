@@ -128,7 +128,7 @@ determinantes([
                estas,esas,aquellas,
                esto,eso,aquello,
                %Indefinidos
-               para,algun,alguno,alguna,algunos,algunas,
+               algun,alguno,alguna,algunos,algunas,
                otro,otra,otros,otras,
                mucho,mucha,muchos,muchas,
                poco,poca,pocos,pocas,
@@ -162,7 +162,7 @@ sujetos([
     necesidades,notificaciones,
     opcion,
     pais,pantalla,pasos,paypal,plan,plug-in,presupuesto,problema,programas,proceso,puerto,puertos,
-    red,regalo,referencia,region,rendimiento,respaldo,respuesta,ritmo,
+    red,regalo,region,rendimiento,respaldo,respuesta,ritmo,
     servicio,servidor,sesion,sistema,software,soporte,suscripcion,suscripciones,
     tarjeta,tiempo,
     unidades,usb,
@@ -171,15 +171,15 @@ sujetos([
 ]).
 
 %Verbos
-%%Solo estan unavez, se encuentran todos los de los dispositivos
+%%Solo estan una vez, se encuentran todos los de los dispositivos
 verbos([
     abrir,acceder,acepte,active,actualice,actualizada,actualizan,actualizar,agregar,agregue,anaden,apague,aparece,aparecen,aumentar,
     baja,bajar,borre,busque,
     cambie,cambio,carga,cargan,cargando,causar,cierre,comprometa,conecta,conectar,conectarse,conectelo,conectese,
     configurar,considere,contacte,continua,correr,corriendo,cree,creese,cumpla,
-    debido,desaparecen,desaparecieron,descarga,descargan,descargar,descargue,desconecte,desconectese,deshabilite,duda,
-    elimine,encender,enciende,encontraba,encuentra,encuentran,encuentre,encuentro,es,escuchan,
-    escucha,escuchar,espere,esta,estaba,estan,este,existe,extraviaron,
+    debido,desaparecen,desaparecieron,descarga,descargar,descargue,desconecte,desconectese,deshabilite,duda,
+    elimine,encender,enciende,encontraba,encuentra,encuentran,encuentre,encuentro,es,
+    escucha,escuchar,espere,esta,estaba,estan,este,extraviaron,
     facilitar,funciona,funcionando,funcionar,
     golpeo,guardado,guardan,guardar,guarde,
     hacer,hay,
@@ -414,14 +414,11 @@ problema([[problema,applemusic],[
 
 %Causas: Macbook
 output([[causa,macbook],[
-           [
-             [no,reconoce,unidades,externas],
-             [
+           [[no,reconoce,unidades,externas],[
                 [se,encuentra,desconectado],
                 [no,se,enciende],
                 [no,se,encuentra,en,el,buscador]
-             ]
-           ],
+            ]],
            [[se,reinicia,sola],[
                 [se,encuentran,corriendo,muchos,programas,a,la,vez],
                 [algun,driver,",",plug-in,o,firmware,esta,desactualizado],
