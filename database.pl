@@ -414,11 +414,14 @@ problema([[problema,applemusic],[
 
 %Causas: Macbook
 output([[causa,macbook],[
-           [[no,reconoce,unidades,externas],[
+           [
+             [no,reconoce,unidades,externas],
+             [
                 [se,encuentra,desconectado],
                 [no,se,enciende],
                 [no,se,encuentra,en,el,buscador]
-            ]],
+             ]
+           ],
            [[se,reinicia,sola],[
                 [se,encuentran,corriendo,muchos,programas,a,la,vez],
                 [algun,driver,",",plug-in,o,firmware,esta,desactualizado],
